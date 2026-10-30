@@ -4,128 +4,783 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Biometrika-Core</title>
-  <link rel="stylesheet" href="/assets/css/global.css">
-  <link rel="stylesheet" href="/assets/css/components.css">
-  <link rel="stylesheet" href="/assets/css/dashboard.css">
-  <link rel="stylesheet" href="/assets/css/premium.css">
+  <link rel="icon" type="image/png" href="../assets/images/logo-fingerprint.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Reset ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', system-ui, sans-serif; background: #F4F2EE; color: #111; overflow-x: hidden; min-height: 100vh; }
+    a { text-decoration: none; color: inherit; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+    svg { display: block; }
+
+    /* ── Tokens ── */
+    :root {
+      --red:      #C52B1A;
+      --red-dark: #B21310;
+      --ivory:    #F4F2EE;
+      --white:    #FFFFFF;
+      --near-black: #111111;
+      --charcoal: #444444;
+      --muted:    #888888;
+      --border:   rgba(0,0,0,0.08);
+      --shadow:   0 2px 12px rgba(0,0,0,0.06);
+      --sidebar-w: 210px;
+    }
+
+    /* ════════════════════════════════════════
+       LAYOUT
+    ════════════════════════════════════════ */
+    .db-layout {
+      min-height: 100vh;
+    }
+
+    /* ════════════════════════════════════════
+       SIDEBAR
+    ════════════════════════════════════════ */
+    .sidebar {
+      background: #fff;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      padding: 1.5rem 0;
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-w);
+      height: 100vh;
+      z-index: 50;
+    }
+
+    .sb-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0 1.25rem 1.75rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .sb-logo img { width: 28px; height: 28px; }
+    .sb-logo-text { font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+    .sb-logo-text span { color: var(--red); }
+
+    .sb-nav { flex: 1; padding: 0 0.75rem; }
+
+    .sb-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.7rem 0.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      transition: all 0.15s;
+      margin-bottom: 0.2rem;
+    }
+    .sb-link svg { width: 18px; height: 18px; stroke-width: 1.7; flex-shrink: 0; }
+    .sb-link:hover { background: var(--ivory); color: var(--near-black); }
+    .sb-link.active {
+      background: #FFF3F2;
+      color: var(--red);
+      font-weight: 600;
+    }
+    .sb-link.active svg { stroke: var(--red); }
+
+    .sb-bottom {
+      padding: 1.25rem;
+      border-top: 1px solid var(--border);
+    }
+    .sb-plan {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .sb-plan svg { width: 18px; height: 18px; color: var(--red); }
+    .sb-plan-name { font-weight: 600; font-size: 0.9rem; }
+
+    .sb-usage-label { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .sb-usage-bar {
+      height: 5px;
+      background: #E5E5E5;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-bottom: 0.85rem;
+    }
+    .sb-usage-fill {
+      height: 100%;
+      background: var(--red);
+      border-radius: 99px;
+      width: 67%;
+    }
+
+    .btn-upgrade {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border-radius: 8px;
+      border: 1.5px solid var(--near-black);
+      font-size: 0.86rem;
+      font-weight: 600;
+      background: #fff;
+      color: var(--near-black);
+      transition: all 0.15s;
+    }
+    .btn-upgrade:hover { background: var(--near-black); color: #fff; }
+
+    /* ════════════════════════════════════════
+       TOP BAR
+    ════════════════════════════════════════ */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem;
+      padding: 1rem 2rem;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      width: 100%;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ivory);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.5rem 0.85rem;
+      width: 220px;
+    }
+    .search-box svg { width: 15px; height: 15px; color: var(--muted); flex-shrink: 0; }
+    .search-box input {
+      border: none;
+      background: transparent;
+      font-size: 0.85rem;
+      color: var(--near-black);
+      outline: none;
+      flex: 1;
+    }
+    .search-box input::placeholder { color: var(--muted); }
+    .search-kbd {
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: #E8E8E8;
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      white-space: nowrap;
+    }
+
+    .topbar-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--red);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    /* ════════════════════════════════════════
+       MAIN CONTENT
+    ════════════════════════════════════════ */
+    .db-main {
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      width: calc(100% - var(--sidebar-w));
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    .db-content {
+      padding: 1.75rem 2rem 3rem;
+      flex: 1;
+      max-width: 1400px;
+    }
+
+    /* ════════════════════════════════════════
+       HERO BANNER
+    ════════════════════════════════════════ */
+    .hero-banner {
+      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      padding: 2.25rem 2.5rem;
+      margin-bottom: 2rem;
+      min-height: 200px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .hero-banner-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('../assets/images/hero-architecture.png');
+      background-size: cover;
+      background-position: right center;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-banner > * { position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-eyebrow::after { content: ''; display: inline-block; width: 2.5rem; height: 1px; background: #ccc; }
+    .hero-banner h1 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+      max-width: 500px;
+    }
+    .hero-banner h1 span { color: var(--red); }
+    .hero-banner p { font-size: 0.92rem; color: var(--charcoal); max-width: 360px; margin-bottom: 1.5rem; line-height: 1.55; }
+    .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .btn-red {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      background: var(--red); color: #fff;
+      padding: 0.7rem 1.4rem; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 600;
+      transition: background 0.15s;
+    }
+    .btn-red:hover { background: var(--red-dark); }
+
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      background: #fff; color: var(--near-black);
+      border: 1.5px solid var(--border);
+      padding: 0.7rem 1.4rem; border-radius: 8px;
+      font-size: 0.88rem; font-weight: 500;
+      transition: border-color 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--charcoal); }
+
+    /* ════════════════════════════════════════
+       SECTION HEADER ROW
+    ════════════════════════════════════════ */
+    .section-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .section-row h2 { font-size: 1.1rem; font-weight: 600; }
+    .view-all { font-size: 0.85rem; color: var(--charcoal); font-weight: 500; }
+    .view-all:hover { color: var(--red); }
+
+    /* ════════════════════════════════════════
+       WEBSITES LIST CARD
+    ════════════════════════════════════════ */
+    .sites-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .site-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto auto auto;
+      align-items: center;
+      gap: 1.25rem;
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.12s;
+    }
+    .site-row:last-child { border-bottom: none; }
+    .site-row:hover { background: #FAFAFA; }
+
+    .site-icon {
+      width: 42px; height: 42px;
+      background: var(--ivory);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .site-icon svg { width: 20px; height: 20px; color: var(--charcoal); }
+
+    .site-info h3 { font-size: 0.92rem; font-weight: 600; margin-bottom: 0.15rem; }
+    .site-info p  { font-size: 0.78rem; color: var(--muted); }
+
+    .badge-protected {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: #EDFAF3;
+      color: #1B7A45;
+      font-size: 0.78rem; font-weight: 600;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+    }
+    .badge-protected::before { content: ''; width: 7px; height: 7px; background: #2ECC71; border-radius: 50%; }
+
+    .site-metric { text-align: right; }
+    .site-metric .metric-label { font-size: 0.72rem; color: var(--muted); margin-bottom: 0.2rem; }
+    .site-metric .metric-val   { font-size: 0.95rem; font-weight: 700; }
+
+    .sparkline { display: flex; align-items: flex-end; gap: 2px; height: 24px; }
+    .sparkline span { width: 4px; border-radius: 2px; background: #2ECC71; opacity: 0.7; }
+
+    .site-bar-chart { display: flex; align-items: flex-end; gap: 2px; height: 24px; }
+    .site-bar-chart span { width: 5px; border-radius: 2px; background: var(--red); opacity: 0.6; }
+
+    .icon-btn {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 6px;
+      color: var(--muted);
+      transition: all 0.12s;
+    }
+    .icon-btn:hover { background: var(--ivory); color: var(--near-black); }
+    .icon-btn svg { width: 16px; height: 16px; }
+
+    /* ════════════════════════════════════════
+       BOTTOM GRID (chart + donut)
+    ════════════════════════════════════════ */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .chart-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+    .chart-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .chart-card-header h2 { font-size: 1rem; font-weight: 600; }
+
+    .period-select {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.82rem; color: var(--charcoal); font-weight: 500;
+      background: var(--ivory); border: 1px solid var(--border);
+      padding: 0.35rem 0.75rem; border-radius: 6px; cursor: pointer;
+    }
+
+    /* SVG Line chart */
+    .line-chart-wrap { width: 100%; overflow: hidden; }
+    .lc-svg { width: 100%; height: 160px; }
+    .lc-axis { font-size: 10px; fill: #aaa; font-family: 'DM Sans', sans-serif; }
+    .chart-legend {
+      display: flex; gap: 1.25rem; margin-top: 0.85rem;
+    }
+    .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem; color: var(--charcoal); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+    /* Donut chart */
+    .donut-card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+    }
+    .donut-card h2 { font-size: 1rem; font-weight: 600; margin-bottom: 1.25rem; }
+
+    .donut-wrap {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .donut-svg-wrap { position: relative; flex-shrink: 0; }
+    .donut-svg { width: 130px; height: 130px; }
+    .donut-center {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+    }
+    .donut-center strong { font-size: 1.4rem; font-weight: 700; display: block; }
+    .donut-center span   { font-size: 0.7rem; color: var(--muted); }
+
+    .donut-legend { flex: 1; display: flex; flex-direction: column; gap: 0.55rem; }
+    .dl-item { display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; }
+    .dl-left { display: flex; align-items: center; gap: 0.5rem; }
+    .dl-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dl-pct { font-weight: 600; color: var(--charcoal); }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+    ════════════════════════════════════════ */
+    @media (max-width: 900px) {
+      .sidebar { transform: translateX(-100%); transition: transform 0.2s; width: 210px; }
+      .sidebar.open { transform: translateX(0); }
+      .db-main { margin-left: 0; width: 100%; }
+      .bottom-grid { grid-template-columns: 1fr; }
+      .site-row { grid-template-columns: auto 1fr auto; gap: 0.75rem; }
+      .site-row .badge-protected,
+      .site-row .sparkline,
+      .site-row .site-bar-chart { display: none; }
+      .site-metric { display: none; }
+      .db-content { padding: 1.25rem 1rem; }
+    }
+    @media (max-width: 600px) {
+      .hero-banner h1 { font-size: 1.6rem; }
+      .topbar { padding: 0.75rem 1rem; }
+      .search-box { width: 150px; }
+    }
+  </style>
 </head>
 <body>
-  <div class="dashboard-layout">
-    <aside class="dashboard-sidebar">
-      <a href="/index.html" class="dashboard-sidebar-logo">
-        <img src="/assets/images/logo-fingerprint.png" alt="Biometrika-Core">
-        <span>Biometrika-<span class="logo-accent">Core</span></span>
+<div class="db-layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-logo">
+      <img src="../assets/images/logo-fingerprint.png" alt="Logo">
+      <div class="sb-logo-text">Biometrika-<span>Core</span></div>
+    </div>
+
+    <nav class="sb-nav">
+      <a href="index.html" class="sb-link active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
       </a>
-      
-      <ul class="dashboard-nav">
-        <li>
-          <a href="/dashboard/index.html" class="active">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-            Overview
-          </a>
-        </li>
-        <li>
-          <a href="/dashboard/websites.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            Websites
-          </a>
-        </li>
-        <li>
-          <a href="/dashboard/analytics.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            Analytics
-          </a>
-        </li>
-        <li>
-          <a href="/dashboard/threats.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg>
-            Threats
-          </a>
-        </li>
-        <li>
-          <a href="/dashboard/api-keys.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
-            API Keys
-          </a>
-        </li>
-        <li>
-          <a href="/dashboard/usage.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-            Usage
-          </a>
-        </li>
-        <li>
-          <a href="/pages/docs.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            Docs
-          </a>
-        </li>
-        <li>
-          <a href="/dashboard/account.html">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            Account
-          </a>
-        </li>
-      </ul>
-    </aside>
-    
-    <main class="dashboard-main">
-      <div class="dashboard-header">
-        <h1>Dashboard</h1>
-        <p>Monitor your website protection and security analytics</p>
+      <a href="websites.html" class="sb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        My Websites
+      </a>
+      <a href="analytics.html" class="sb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Analytics
+      </a>
+      <a href="threats.html" class="sb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Protection
+      </a>
+      <a href="api-keys.html" class="sb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+        API Keys
+      </a>
+      <a href="usage.html" class="sb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+        Usage
+      </a>
+      <a href="../pages/docs.html" class="sb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        Docs
+      </a>
+      <a href="account.html" class="sb-link">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Account
+      </a>
+    </nav>
+
+    <div class="sb-bottom">
+      <div class="sb-plan">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span class="sb-plan-name">Free Plan</span>
       </div>
-      
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="label">Total Requests</div>
-          <div class="value">24,891</div>
-          <div class="change positive">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            +12.5% from last week
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="label">Verified Humans</div>
-          <div class="value">21,453</div>
-          <div class="change positive">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            +8.2% from last week
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="label">Threats Blocked</div>
-          <div class="value">3,438</div>
-          <div class="change negative">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
-            -5.1% from last week
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="label">Success Rate</div>
-          <div class="value">86.2%</div>
-          <div class="change positive">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-            +2.3% from last week
-          </div>
+      <div class="sb-usage-label">2 / 3 websites</div>
+      <div class="sb-usage-bar"><div class="sb-usage-fill"></div></div>
+      <button class="btn-upgrade" onclick="location.href='../pages/pricing.html'">
+        Upgrade Plan →
+      </button>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <div class="db-main">
+
+    <!-- Top bar -->
+    <div class="topbar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="Search...">
+        <span class="search-kbd">Ctrl K</span>
+      </div>
+      <div class="topbar-avatar">A</div>
+    </div>
+
+    <div class="db-content">
+
+      <!-- ── HERO BANNER ── -->
+      <div class="hero-banner">
+        <div class="hero-banner-bg"></div>
+        <div class="hero-eyebrow">WELCOME BACK, ANKIT</div>
+        <h1>Your websites.<br><span>Real human</span> traffic.</h1>
+        <p>Keep your websites safe from bots, AI agents and scrapers with Biometrika-Core.</p>
+        <div class="hero-actions">
+          <button class="btn-red" onclick="location.href='websites.html'">
+            + Add Website →
+          </button>
+          <button class="btn-outline" onclick="location.href='../pages/docs.html'">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            View Guide
+          </button>
         </div>
       </div>
-      
-      <div class="dashboard-card">
-        <h3>Recent Activity</h3>
-        <div class="empty-state">
-          <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="10"/>
-            <path d="M12 6v6l4 2"/>
-          </svg>
-          <h3>No Recent Activity</h3>
-          <p>Activity will appear here once you add a website and start protecting it</p>
-          <a href="/dashboard/websites.html" class="btn-primary">Add Your First Website</a>
+
+      <!-- ── MY WEBSITES ── -->
+      <div class="section-row">
+        <h2>My Websites</h2>
+        <a href="websites.html" class="view-all">View All →</a>
+      </div>
+
+      <div class="sites-card">
+        <!-- Row 1 -->
+        <div class="site-row">
+          <div class="site-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="site-info">
+            <h3>portfolio-kali.vercel.app</h3>
+            <p>Added on Oct 10, 2026</p>
+          </div>
+          <div class="badge-protected">Protected</div>
+          <div class="site-metric">
+            <div class="metric-label">Human Traffic</div>
+            <div class="metric-val">98.2%</div>
+          </div>
+          <div class="sparkline">
+            <span style="height:40%"></span><span style="height:60%"></span>
+            <span style="height:45%"></span><span style="height:80%"></span>
+            <span style="height:55%"></span><span style="height:90%"></span>
+            <span style="height:70%"></span><span style="height:100%"></span>
+          </div>
+          <div class="site-metric">
+            <div class="metric-label">Blocked Threats</div>
+            <div class="metric-val">312</div>
+          </div>
+          <div class="site-bar-chart">
+            <span style="height:50%"></span><span style="height:80%"></span>
+            <span style="height:40%"></span><span style="height:100%"></span>
+            <span style="height:60%"></span>
+          </div>
+          <a href="websites.html" class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+          </button>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="site-row">
+          <div class="site-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          </div>
+          <div class="site-info">
+            <h3>buildyourstartup.in</h3>
+            <p>Added on Sep 22, 2026</p>
+          </div>
+          <div class="badge-protected">Protected</div>
+          <div class="site-metric">
+            <div class="metric-label">Human Traffic</div>
+            <div class="metric-val">97.4%</div>
+          </div>
+          <div class="sparkline">
+            <span style="height:55%"></span><span style="height:70%"></span>
+            <span style="height:50%"></span><span style="height:85%"></span>
+            <span style="height:65%"></span><span style="height:95%"></span>
+            <span style="height:75%"></span><span style="height:100%"></span>
+          </div>
+          <div class="site-metric">
+            <div class="metric-label">Blocked Threats</div>
+            <div class="metric-val">428</div>
+          </div>
+          <div class="site-bar-chart">
+            <span style="height:60%"></span><span style="height:90%"></span>
+            <span style="height:45%"></span><span style="height:100%"></span>
+            <span style="height:75%"></span>
+          </div>
+          <a href="websites.html" class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          </a>
+          <button class="icon-btn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"/><circle cx="12" cy="5" r="1"/><circle cx="12" cy="19" r="1"/></svg>
+          </button>
         </div>
       </div>
-    </main>
-  </div>
+
+      <!-- ── BOTTOM GRID: Line chart + Donut ── -->
+      <div class="bottom-grid">
+
+        <!-- Line Chart -->
+        <div class="chart-card">
+          <div class="chart-card-header">
+            <h2>Traffic Overview</h2>
+            <div class="period-select">
+              Last 7 days
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </div>
+          </div>
+          <div class="line-chart-wrap">
+            <svg class="lc-svg" viewBox="0 0 560 160" preserveAspectRatio="none">
+              <!-- Y axis labels -->
+              <text x="0" y="14" class="lc-axis">15K</text>
+              <text x="0" y="55" class="lc-axis">10K</text>
+              <text x="0" y="100" class="lc-axis">5K</text>
+              <text x="0" y="148" class="lc-axis">0</text>
+
+              <!-- Grid lines -->
+              <line x1="30" y1="10" x2="555" y2="10" stroke="#F0F0F0" stroke-width="1"/>
+              <line x1="30" y1="50" x2="555" y2="50" stroke="#F0F0F0" stroke-width="1"/>
+              <line x1="30" y1="95" x2="555" y2="95" stroke="#F0F0F0" stroke-width="1"/>
+              <line x1="30" y1="143" x2="555" y2="143" stroke="#F0F0F0" stroke-width="1"/>
+
+              <!-- Human traffic fill -->
+              <defs>
+                <linearGradient id="gHuman" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2ECC71" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#2ECC71" stop-opacity="0.02"/>
+                </linearGradient>
+                <linearGradient id="gBlocked" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#C52B1A" stop-opacity="0.15"/>
+                  <stop offset="100%" stop-color="#C52B1A" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Human area -->
+              <path d="M 30 95 C 95 60, 110 50, 160 45 C 210 40, 230 55, 280 38 C 330 20, 360 30, 400 28 C 440 26, 480 35, 555 32 L 555 143 L 30 143 Z"
+                    fill="url(#gHuman)" />
+              <!-- Human line -->
+              <path d="M 30 95 C 95 60, 110 50, 160 45 C 210 40, 230 55, 280 38 C 330 20, 360 30, 400 28 C 440 26, 480 35, 555 32"
+                    fill="none" stroke="#2ECC71" stroke-width="2.2" stroke-linecap="round"/>
+              <!-- Human dots -->
+              <circle cx="30"  cy="95" r="3.5" fill="#2ECC71"/>
+              <circle cx="110" cy="50" r="3.5" fill="#2ECC71"/>
+              <circle cx="160" cy="45" r="3.5" fill="#2ECC71"/>
+              <circle cx="230" cy="55" r="3.5" fill="#2ECC71"/>
+              <circle cx="280" cy="38" r="3.5" fill="#2ECC71"/>
+              <circle cx="360" cy="30" r="3.5" fill="#2ECC71"/>
+              <circle cx="400" cy="28" r="3.5" fill="#2ECC71"/>
+              <circle cx="555" cy="32" r="3.5" fill="#2ECC71"/>
+
+              <!-- Blocked area -->
+              <path d="M 30 138 C 95 133, 150 130, 200 128 C 250 126, 300 132, 370 129 C 420 127, 480 131, 555 128 L 555 143 L 30 143 Z"
+                    fill="url(#gBlocked)" />
+              <!-- Blocked line -->
+              <path d="M 30 138 C 95 133, 150 130, 200 128 C 250 126, 300 132, 370 129 C 420 127, 480 131, 555 128"
+                    fill="none" stroke="#C52B1A" stroke-width="2" stroke-linecap="round"/>
+              <!-- Blocked dots -->
+              <circle cx="30"  cy="138" r="3" fill="#C52B1A"/>
+              <circle cx="200" cy="128" r="3" fill="#C52B1A"/>
+              <circle cx="370" cy="129" r="3" fill="#C52B1A"/>
+              <circle cx="555" cy="128" r="3" fill="#C52B1A"/>
+
+              <!-- X axis labels -->
+              <text x="26"  y="158" class="lc-axis" text-anchor="middle">Oct 16</text>
+              <text x="110" y="158" class="lc-axis" text-anchor="middle">Oct 17</text>
+              <text x="160" y="158" class="lc-axis" text-anchor="middle">Oct 18</text>
+              <text x="230" y="158" class="lc-axis" text-anchor="middle">Oct 19</text>
+              <text x="280" y="158" class="lc-axis" text-anchor="middle">Oct 20</text>
+              <text x="370" y="158" class="lc-axis" text-anchor="middle">Oct 21</text>
+              <text x="440" y="158" class="lc-axis" text-anchor="middle">Oct 22</text>
+            </svg>
+          </div>
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#2ECC71"></div> Human Traffic</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#C52B1A"></div> Blocked Traffic</div>
+          </div>
+        </div>
+
+        <!-- Donut Chart -->
+        <div class="donut-card">
+          <h2>Threat Breakdown</h2>
+          <div class="donut-wrap">
+            <div class="donut-svg-wrap">
+              <svg class="donut-svg" viewBox="0 0 130 130">
+                <circle cx="65" cy="65" r="50" fill="none" stroke="#F0F0F0" stroke-width="18"/>
+                <!-- AI Agents 42% -->
+                <circle cx="65" cy="65" r="50" fill="none" stroke="#C52B1A" stroke-width="18"
+                        stroke-dasharray="131.9 314.2" stroke-dashoffset="0"
+                        transform="rotate(-90 65 65)"/>
+                <!-- Scrapers 28% -->
+                <circle cx="65" cy="65" r="50" fill="none" stroke="#E8897F" stroke-width="18"
+                        stroke-dasharray="87.9 314.2" stroke-dashoffset="-131.9"
+                        transform="rotate(-90 65 65)"/>
+                <!-- Bot Networks 18% -->
+                <circle cx="65" cy="65" r="50" fill="none" stroke="#F5C4C0" stroke-width="18"
+                        stroke-dasharray="56.6 314.2" stroke-dashoffset="-219.8"
+                        transform="rotate(-90 65 65)"/>
+                <!-- Credential Stuffing 8% -->
+                <circle cx="65" cy="65" r="50" fill="none" stroke="#FBE0DE" stroke-width="18"
+                        stroke-dasharray="25.1 314.2" stroke-dashoffset="-276.4"
+                        transform="rotate(-90 65 65)"/>
+                <!-- Others 4% -->
+                <circle cx="65" cy="65" r="50" fill="none" stroke="#E5E5E5" stroke-width="18"
+                        stroke-dasharray="12.6 314.2" stroke-dashoffset="-301.5"
+                        transform="rotate(-90 65 65)"/>
+              </svg>
+              <div class="donut-center">
+                <strong>428</strong>
+                <span>Blocked</span>
+              </div>
+            </div>
+            <div class="donut-legend">
+              <div class="dl-item">
+                <div class="dl-left"><div class="dl-dot" style="background:#C52B1A"></div><span>AI Agents</span></div>
+                <span class="dl-pct">42%</span>
+              </div>
+              <div class="dl-item">
+                <div class="dl-left"><div class="dl-dot" style="background:#E8897F"></div><span>Scrapers</span></div>
+                <span class="dl-pct">28%</span>
+              </div>
+              <div class="dl-item">
+                <div class="dl-left"><div class="dl-dot" style="background:#F5C4C0"></div><span>Bot Networks</span></div>
+                <span class="dl-pct">18%</span>
+              </div>
+              <div class="dl-item">
+                <div class="dl-left"><div class="dl-dot" style="background:#FBE0DE"></div><span>Credential Stuffing</span></div>
+                <span class="dl-pct">8%</span>
+              </div>
+              <div class="dl-item">
+                <div class="dl-left"><div class="dl-dot" style="background:#E5E5E5"></div><span>Others</span></div>
+                <span class="dl-pct">4%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /bottom-grid -->
+    </div><!-- /db-content -->
+  </div><!-- /db-main -->
+</div><!-- /db-layout -->
+
+<script>
+  // Mobile sidebar toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    const sidebar = document.getElementById('sidebar');
+    // Add a hamburger button if on mobile
+    if (window.innerWidth <= 900) {
+      const btn = document.createElement('button');
+      btn.style.cssText = 'position:fixed;top:1rem;left:1rem;z-index:100;background:#fff;border:1px solid #E0E0E0;border-radius:8px;padding:.5rem;cursor:pointer;';
+      btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>';
+      btn.onclick = () => sidebar.classList.toggle('open');
+      document.body.appendChild(btn);
+    }
+  });
+</script>
 </body>
 </html>
