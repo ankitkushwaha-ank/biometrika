@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign in — Biometrika-Core</title>
+  <meta name="description" content="Sign in to your Biometrika-Core security console and manage behavioral website defense." />
+
+  <!-- Favicon: Red Fingerprint Logo -->
+  <link rel="icon" type="image/png" href="assets/images/logo-fingerprint.png" />
+  <link rel="apple-touch-icon" href="assets/images/logo-fingerprint.png" />
+
+  <!-- Google Fonts: Playfair Display & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="welcome-page">
+
+  <!-- ============================================================
+       TOP HEADER
+  ============================================================ -->
+  <header id="welcome-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Biometrika-Core home">
+        <img
+          src="assets/images/logo-fingerprint.png"
+          alt="Biometrika-Core Logo"
+          class="logo-icon"
+          width="28"
+          height="28"
+        />
+        <span class="logo-text">
+          <span class="logo-dark">Biometrika-</span><span class="logo-red">Core</span>
+        </span>
+      </a>
+
+      <a href="index.html" class="nav-back-link">
+        <span class="back-arrow" aria-hidden="true">→</span>
+        Back to website
+      </a>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       MAIN HERO / SIGN-IN SECTION
+  ============================================================ -->
+  <main class="welcome-main">
+    <!-- Futuristic Glass Biometric Interface Background -->
+    <div
+      class="welcome-bg"
+      style="background-image: url('resorce_image/Futuristic Glass Biometric Interface (1).png');"
+      role="img"
+      aria-label="Futuristic glass biometric panel glowing with fingerprint matrix"
+    ></div>
+
+    <div class="welcome-container">
+      <div class="welcome-grid">
+
+        <!-- Left Column: Copy & Platform Tags -->
+        <div class="welcome-left">
+          <p class="eyebrow welcome-eyebrow">SECURE ACCESS</p>
+
+          <h1 class="welcome-headline">
+            Welcome<br />
+            <span class="red">back.</span>
+          </h1>
+
+          <p class="welcome-desc">
+            Sign in to manage your website protection.
+          </p>
+
+          <div class="welcome-subtag">
+            <span class="threat-dot"></span>
+            <span class="subtag-text">PROTECTION PLATFORM</span>
+          </div>
+        </div>
+
+        <!-- Center / Right: Floating Auth Card (Includes _sign_form.html) -->
+        <div class="welcome-right" id="auth-form-slot">
+          
+          <!-- Direct Inclusion of _sign_form.html -->
+          <div class="auth-card" id="auth-card">
+            
+            <!-- SIGN IN STATE -->
+            <div class="auth-state" id="state-signin">
+              <div class="auth-header">
+                <h2 class="auth-title">Sign in</h2>
+                <p class="auth-subtitle">Access your security dashboard</p>
+              </div>
+
+              <form class="auth-form" id="form-signin" onsubmit="event.preventDefault(); alert('Signed in successfully.');">
+                <!-- Email Field -->
+                <div class="auth-field">
+                  <div class="field-input-wrap">
+                    <span class="field-icon" aria-hidden="true">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="3"/>
+                        <path d="M22 7l-10 7L2 7"/>
+                      </svg>
+                    </span>
+                    <input
+                      type="email"
+                      id="signin-email"
+                      class="auth-input"
+                      placeholder="Email address"
+                      required
+                      autocomplete="email"
+                    />
+                  </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="auth-field">
+                  <div class="field-input-wrap">
+                    <span class="field-icon" aria-hidden="true">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                      </svg>
+                    </span>
+                    <input
+                      type="password"
+                      id="signin-password"
+                      class="auth-input"
+                      placeholder="Password"
+                      required
+                      autocomplete="current-password"
+                    />
+                    <button
+                      type="button"
+                      class="field-action-btn toggle-password"
+                      aria-label="Toggle password visibility"
+                      data-target="signin-password"
+                    >
+                      <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Forgot Password link -->
+                <div class="auth-row-right">
+                  <a href="#" class="auth-link-red" id="link-forgot-pass">Forgot password?</a>
+                </div>
+
+                <!-- Remember Me Checkbox -->
+                <div class="auth-remember-row">
+                  <label class="checkbox-container">
+                    <input type="checkbox" id="remember-me" />
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-label">Remember me</span>
+                  </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-auth-submit">
+                  Sign in securely
+                  <span class="btn-arrow" aria-hidden="true">→</span>
+                </button>
+
+                <!-- Divider -->
+                <div class="auth-divider">
+                  <span>or continue with</span>
+                </div>
+
+                <!-- Google Sign In -->
+                <button type="button" class="btn-google" onclick="alert('Google authentication connected.');">
+                  <svg class="google-icon" width="18" height="18" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.15z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.25 21.37 7.32 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.14-1.55.38-2.27V6.58H1.26C.46 8.17 0 9.99 0 12s.46 3.83 1.26 5.42l4.02-3.15z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.32 0 3.25 2.63 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                  </svg>
+                  Sign in with Google
+                </button>
+
+                <!-- Bottom switch to register -->
+                <div class="auth-switch">
+                  <span>New to Biometrika-Core?</span>
+                  <button type="button" class="switch-link" id="btn-switch-to-register">Create account</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- REGISTER STATE (CREATE ACCOUNT) -->
+            <div class="auth-state" id="state-register" style="display: none;">
+              <div class="auth-header">
+                <h2 class="auth-title">Create account</h2>
+                <p class="auth-subtitle">Start protecting your website in minutes</p>
+              </div>
+
+              <form class="auth-form" id="form-register" onsubmit="event.preventDefault(); alert('Account created successfully.');">
+                <!-- Full Name -->
+                <div class="auth-field">
+                  <div class="field-input-wrap">
+                    <span class="field-icon" aria-hidden="true">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                      </svg>
+                    </span>
+                    <input
+                      type="text"
+                      id="register-name"
+                      class="auth-input"
+                      placeholder="Full name"
+                      required
+                      autocomplete="name"
+                    />
+                  </div>
+                </div>
+
+                <!-- Work Email -->
+                <div class="auth-field">
+                  <div class="field-input-wrap">
+                    <span class="field-icon" aria-hidden="true">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="4" width="20" height="16" rx="3"/>
+                        <path d="M22 7l-10 7L2 7"/>
+                      </svg>
+                    </span>
+                    <input
+                      type="email"
+                      id="register-email"
+                      class="auth-input"
+                      placeholder="Work email address"
+                      required
+                      autocomplete="email"
+                    />
+                  </div>
+                </div>
+
+                <!-- Password -->
+                <div class="auth-field">
+                  <div class="field-input-wrap">
+                    <span class="field-icon" aria-hidden="true">
+                      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+                      </svg>
+                    </span>
+                    <input
+                      type="password"
+                      id="register-password"
+                      class="auth-input"
+                      placeholder="Create password"
+                      required
+                      autocomplete="new-password"
+                    />
+                    <button
+                      type="button"
+                      class="field-action-btn toggle-password"
+                      aria-label="Toggle password visibility"
+                      data-target="register-password"
+                    >
+                      <svg class="eye-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Terms Checkbox -->
+                <div class="auth-remember-row">
+                  <label class="checkbox-container">
+                    <input type="checkbox" id="terms-agree" required />
+                    <span class="checkbox-custom"></span>
+                    <span class="checkbox-label">I agree to Terms & Privacy Policy</span>
+                  </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn-auth-submit">
+                  Create account
+                  <span class="btn-arrow" aria-hidden="true">→</span>
+                </button>
+
+                <!-- Divider -->
+                <div class="auth-divider">
+                  <span>or sign up with</span>
+                </div>
+
+                <!-- Google Sign Up -->
+                <button type="button" class="btn-google" onclick="alert('Google account registration.');">
+                  <svg class="google-icon" width="18" height="18" viewBox="0 0 24 24">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.665-5.17 3.665-9.15z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.26v3.15C3.25 21.37 7.32 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.14-1.55.38-2.27V6.58H1.26C.46 8.17 0 9.99 0 12s.46 3.83 1.26 5.42l4.02-3.15z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.32 0 3.25 2.63 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
+                  </svg>
+                  Sign up with Google
+                </button>
+
+                <!-- Bottom switch to signin -->
+                <div class="auth-switch">
+                  <span>Already have an account?</span>
+                  <button type="button" class="switch-link" id="btn-switch-to-signin">Sign in</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Interactive Switcher Script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var stateSignIn = document.getElementById('state-signin');
+      var stateRegister = document.getElementById('state-register');
+      var btnToRegister = document.getElementById('btn-switch-to-register');
+      var btnToSignIn = document.getElementById('btn-switch-to-signin');
+
+      if (btnToRegister && btnToSignIn && stateSignIn && stateRegister) {
+        btnToRegister.addEventListener('click', function() {
+          stateSignIn.style.display = 'none';
+          stateRegister.style.display = 'block';
+        });
+
+        btnToSignIn.addEventListener('click', function() {
+          stateRegister.style.display = 'none';
+          stateSignIn.style.display = 'block';
+        });
+      }
+
+      // Password toggle
+      document.querySelectorAll('.toggle-password').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var targetId = btn.getAttribute('data-target');
+          var input = document.getElementById(targetId);
+          if (input) {
+            input.type = (input.type === 'password') ? 'text' : 'password';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

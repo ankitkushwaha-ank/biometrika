@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documentation | Biometrika-Core</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-fingerprint.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .docs-layout { display: grid; grid-template-columns: 250px 1fr; gap: 3rem; margin-top: 2rem; }
+    .docs-sidebar { position: sticky; top: 100px; height: fit-content; }
+    .docs-nav { list-style: none; }
+    .docs-nav li { margin-bottom: 0.5rem; }
+    .docs-nav a { color: var(--charcoal); text-decoration: none; font-size: 0.95rem; transition: var(--transition); }
+    .docs-nav a:hover, .docs-nav a.active { color: var(--red-accent); }
+    .docs-content { max-width: 800px; }
+    .docs-content h2 { margin-top: 2.5rem; margin-bottom: 1rem; font-size: 1.8rem; }
+    .docs-content h3 { margin-top: 2rem; margin-bottom: 0.75rem; font-size: 1.3rem; }
+    .docs-content p { margin-bottom: 1.5rem; line-height: 1.7; }
+    .code-block { background: var(--near-black); color: #fff; padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin: 1.5rem 0; }
+    .code-block code { font-family: 'Courier New', monospace; font-size: 0.9rem; line-height: 1.6; white-space: pre; }
+    @media (max-width: 900px) { .docs-layout { grid-template-columns: 1fr; } .docs-sidebar { position: static; } }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header id="site-header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="logo" aria-label="Biometrika-Core home">
+        <img src="../assets/images/logo-fingerprint.png" alt="Biometrika-Core Logo" class="logo-icon" width="28" height="28" />
+        <span class="logo-text">
+          <span class="logo-dark">Biometrika-</span><span class="logo-red">Core</span>
+        </span>
+      </a>
+      <nav class="nav-right" aria-label="Primary navigation">
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="playground.html" class="nav-link">Playground</a>
+        <a href="protection.html" class="nav-link">Protection</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="../auth/login.html" class="btn-signin">Sign In <span class="nav-arrow">→</span></a>
+      </nav>
+      <button class="nav-hamburger" id="hamburger-btn" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+  <nav class="mobile-menu" id="mobile-menu">
+        <a href="how-it-works.html">How It Works</a>
+    <a href="playground.html">Playground</a>
+    <a href="protection.html">Protection</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="../auth/login.html">Sign In</a>
+  </nav>
+
+  <main>
+  <div class="container">
+    <div class="page-hero">
+      <h1>Documentation</h1>
+      <p>Everything you need to integrate Biometrika-Core</p>
+    </div>
+
+    <div class="docs-layout">
+      <aside class="docs-sidebar">
+        <ul class="docs-nav">
+          <li><a href="#getting-started" class="active">Getting Started</a></li>
+          <li><a href="#installation">Installation</a></li>
+          <li><a href="#configuration">Configuration</a></li>
+          <li><a href="#verification">Verification</a></li>
+          <li><a href="#api-reference">API Reference</a></li>
+          <li><a href="#examples">Examples</a></li>
+        </ul>
+      </aside>
+
+      <div class="docs-content">
+        <h2 id="getting-started">Getting Started</h2>
+        <p>Biometrika-Core provides human verification for your web applications through behavioral analysis. This guide will help you integrate it in minutes.</p>
+
+        <h2 id="installation">Installation</h2>
+        <h3>NPM</h3>
+        <div class="code-block"><code>npm install @biometrika/core</code></div>
+
+        <h3>CDN</h3>
+        <div class="code-block"><code>&lt;script src="https://cdn.biometrika.io/v1/biometrika.min.js"&gt;&lt;/script&gt;</code></div>
+
+        <h2 id="configuration">Configuration</h2>
+        <p>Initialize Biometrika-Core with your site key:</p>
+        <div class="code-block"><code>import { Biometrika } from '@biometrika/core';
+
+const client = new Biometrika({
+  siteKey: 'YOUR_SITE_KEY',
+  mode: 'invisible', // or 'visible'
+  theme: 'light' // or 'dark'
+});</code></div>
+
+        <h2 id="verification">Verification</h2>
+        <p>Verify a user interaction:</p>
+        <div class="code-block"><code>const result = await client.verify();
+
+if (result.verified) {
+  console.log('User verified:', result.token);
+  // Send token to your backend
+} else {
+  console.log('Verification failed:', result.reason);
+}</code></div>
+
+        <h2 id="api-reference">API Reference</h2>
+        <h3>Biometrika Class</h3>
+        <p><strong>Constructor:</strong> <code>new Biometrika(options)</code></p>
+        <p><strong>Methods:</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+          <li><code>verify()</code> - Initiates verification process</li>
+          <li><code>reset()</code> - Resets verification state</li>
+          <li><code>destroy()</code> - Cleans up resources</li>
+        </ul>
+
+        <h2 id="examples">Examples</h2>
+        <h3>Login Form Protection</h3>
+        <div class="code-block"><code>document.getElementById('loginForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const result = await client.verify();
+  if (result.verified) {
+    // Submit form with token
+    submitLogin(result.token);
+  }
+});</code></div>
+
+        <div style="margin-top: 3rem; padding: 1.5rem; background: var(--ivory-alt); border-radius: 12px;">
+          <h4>Need Help?</h4>
+          <p style="margin: 0.5rem 0;">Check out our <a href="developers.html" style="color: var(--red-accent);">developer resources</a> or contact support.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </main>
+
+  <script>
+    document.getElementById('hamburger-btn')?.addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer style="background:var(--ivory-alt);padding:4rem 0 2rem;margin-top:4rem;border-top:1px solid rgba(0,0,0,.06);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:3rem;">
+        <div>
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
+            <img src="../assets/images/logo-fingerprint.png" style="width:28px;height:28px;">
+            <strong style="font-size:1rem;">Biometrika-Core</strong>
+          </div>
+          <p style="color:var(--charcoal);font-size:.88rem;line-height:1.6;">Human-first security for the modern internet.</p>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Product</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="how-it-works.html" style="color:var(--charcoal);font-size:.88rem;">How It Works</a>
+            <a href="playground.html" style="color:var(--charcoal);font-size:.88rem;">Playground</a>
+            <a href="protection.html" style="color:var(--charcoal);font-size:.88rem;">Protection</a>
+            <a href="pricing.html" style="color:var(--charcoal);font-size:.88rem;">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Company</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="about.html" style="color:var(--charcoal);font-size:.88rem;">About Us</a>
+            <a href="contact.html" style="color:var(--charcoal);font-size:.88rem;">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Legal</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="privacy.html" style="color:var(--charcoal);font-size:.88rem;">Privacy Policy</a>
+            <a href="terms.html" style="color:var(--charcoal);font-size:.88rem;">Terms of Service</a>
+            <a href="security.html" style="color:var(--charcoal);font-size:.88rem;">Security</a>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:1.5rem;border-top:1px solid rgba(0,0,0,.08);text-align:center;">
+        <p style="margin:0;color:var(--charcoal);font-size:.88rem;">&copy; 2026 Biometrika-Core. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Playground | Biometrika-Core</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-fingerprint.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    /* ═══════════════════════════════════════════════
+       PLAYGROUND — BASE
+    ═══════════════════════════════════════════════ */
+    body { background: var(--ivory) !important; }
+
+    .pg-wrap { padding: 8rem 0 4rem; min-height: 100vh; }
+
+    .pg-title { text-align: center; margin-bottom: 3rem; padding: 0 1rem; }
+    .pg-title h1 { font-family: var(--font-serif); font-size: clamp(2rem,5vw,3rem); font-weight: 600; }
+    .pg-title p  { color: var(--charcoal); font-size: 1rem; margin-top: .5rem; }
+
+    /* three-col grid */
+    .pg-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr 300px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 1100px) {
+      .pg-grid { grid-template-columns: 220px 1fr; }
+      .det-col  { display: none; }            /* hide details col on tablet */
+    }
+    @media (max-width: 720px) {
+      .pg-grid { grid-template-columns: 1fr; }
+      .left-col { display: none; }            /* hide sidebar on mobile, use tab row */
+      .det-col  { display: none; }
+    }
+
+    /* mobile tab row (replaces left sidebar) */
+    .mob-tabs {
+      display: none;
+      overflow-x: auto;
+      gap: .5rem;
+      padding: 0 1rem 1rem;
+      scrollbar-width: none;
+    }
+    .mob-tabs::-webkit-scrollbar { display: none; }
+    @media (max-width: 720px) { .mob-tabs { display: flex; } }
+    .mob-tab {
+      flex-shrink: 0; padding: .5rem 1rem;
+      border: 1.5px solid #E0E0E0; border-radius: 999px;
+      font-size: .85rem; font-weight: 600; cursor: pointer;
+      background: #fff; transition: all .18s; white-space: nowrap;
+    }
+    .mob-tab.active { background: var(--red-accent); color: #fff; border-color: var(--red-accent); }
+
+    /* ── shared card ── */
+    .pg-card {
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px rgba(0,0,0,.05);
+    }
+
+    /* ═══════════════════════════════════════════════
+       LEFT SIDEBAR
+    ═══════════════════════════════════════════════ */
+    .left-col .pg-card { padding: 1.5rem; position: sticky; top: 100px; }
+    .sidebar-ttl {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .1em; color: #888; margin-bottom: 1rem;
+    }
+    .ch-item {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .75rem; margin-bottom: .35rem;
+      border-radius: 8px; cursor: pointer;
+      border: 2px solid transparent; transition: all .18s;
+    }
+    .ch-item:hover { background: #F5F5F5; }
+    .ch-item.active { background: #FFF4F3; border-color: var(--red-accent); }
+    .ch-dot {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: #EBEBEB; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .82rem; color: #555;
+      transition: all .18s;
+    }
+    .ch-item.active .ch-dot { background: var(--red-accent); color: #fff; }
+    .ch-item.done   .ch-dot { background: #5C8A6A; color: #fff; }
+    .ch-label { font-size: .88rem; font-weight: 500; }
+
+    /* ═══════════════════════════════════════════════
+       CENTER CARD
+    ═══════════════════════════════════════════════ */
+    .center-col .pg-card { padding: 0; min-height: 540px; }
+
+    .card-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 1.75rem; border-bottom: 1px solid #F2F2F2;
+    }
+    .card-logo-row { display: flex; align-items: center; gap: .5rem; }
+    .card-logo-row img { width: 28px; height: 28px; }
+    .card-logo-txt { font-size: .95rem; font-weight: 600; }
+    .card-step-txt { font-size: .82rem; color: #888; white-space: nowrap; }
+
+    .card-prog {
+      display: flex; gap: .3rem;
+      padding: .85rem 1.75rem .1rem;
+    }
+    .cp { flex: 1; height: 3px; border-radius: 2px; background: #E8E8E8; transition: background .3s; }
+    .cp.on { background: var(--red-accent); }
+
+    .card-body { padding: 1.4rem 1.75rem 1.75rem; }
+    .ch-title { font-size: 1.45rem; font-weight: 600; margin-bottom: .35rem; }
+    .ch-desc  { font-size: .9rem; color: #666; margin-bottom: 1.5rem; }
+
+    /* ═══════════════════════════════════════════════
+       CAPTCHA WIDGET — Challenge 1
+       Exact match: left glow rings + square box,
+       centre text on one line, right logo
+    ═══════════════════════════════════════════════ */
+    .cw-wrap {
+      position: relative; overflow: hidden;
+      background: #F7F6F4;
+      border: 1.5px solid #E0DDD7;
+      border-radius: 14px;
+      padding: 1rem 1.25rem 1rem 1rem;
+      display: flex; align-items: center; gap: 1rem;
+      cursor: pointer;
+      transition: border-color .2s;
+      user-select: none;
+    }
+    .cw-wrap:hover { border-color: #C8C3BA; }
+    .cw-wrap.done  { border-color: #7EB89A; cursor: default; pointer-events: none; }
+
+    /* concentric glow rings on the left */
+    .cw-rings {
+      position: relative; flex-shrink: 0;
+      width: 60px; height: 60px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .cw-ring {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(197,43,26,.09) 0%, transparent 70%);
+    }
+    .cw-ring:nth-child(1) { width: 60px; height: 60px; }
+    .cw-ring:nth-child(2) { width: 44px; height: 44px; background: radial-gradient(circle,rgba(197,43,26,.13) 0%,transparent 70%); }
+    .cw-ring:nth-child(3) { width: 30px; height: 30px; background: radial-gradient(circle,rgba(197,43,26,.18) 0%,transparent 70%); }
+
+    /* the square checkbox */
+    .cw-box {
+      position: relative; z-index: 2;
+      width: 24px; height: 24px;
+      border: 2px solid #BDBDBD; border-radius: 5px;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .25s;
+    }
+    .cw-wrap.done .cw-box {
+      border-color: #5C8A6A; background: #5C8A6A;
+    }
+
+    /* animated check inside box */
+    .cw-svg { display: none; }
+    .cw-wrap.done .cw-svg { display: block; }
+
+    /* spinning loader ring (before verified) */
+    .cw-loader {
+      width: 20px; height: 20px;
+      border: 2.5px solid rgba(197,43,26,.2);
+      border-top-color: var(--red-accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      display: none;
+    }
+    .cw-wrap.loading .cw-box { display: none; }
+    .cw-wrap.loading .cw-loader { display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* text block — single row on desktop */
+    .cw-text { flex: 1; min-width: 0; }
+    .cw-text strong {
+      font-size: .98rem; font-weight: 700;
+      white-space: nowrap; /* one line */
+    }
+    .cw-text span { display: block; font-size: .78rem; color: #999; margin-top: .1rem; }
+
+    /* right logo block */
+    .cw-brand { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: .25rem; }
+    .cw-brand img { width: 42px; height: 42px; }
+    .cw-brand-name { font-size: .72rem; font-weight: 700; white-space: nowrap; }
+
+    /* ═══════════════════════════════════════════════
+       CHALLENGE 2 — Rotate
+    ═══════════════════════════════════════════════ */
+    .ch-area { display: flex; flex-direction: column; align-items: center; }
+
+    .rot-img {
+      width: min(240px, 80vw); height: min(240px, 80vw);
+      object-fit: cover; border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,.1);
+      margin-bottom: 1.5rem; transition: transform .1s linear;
+    }
+    .rot-row {
+      display: flex; align-items: center; gap: .85rem;
+      width: 100%; max-width: 380px;
+    }
+    .rot-icon { font-size: 1.3rem; color: var(--red-accent); flex-shrink: 0; }
+    input.rot-sl {
+      flex: 1; height: 5px; border-radius: 3px; outline: none;
+      -webkit-appearance: none; cursor: pointer;
+      background: linear-gradient(90deg, #FFDEDE 0%, var(--red-accent) 50%, #FFDEDE 100%);
+    }
+    input.rot-sl::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 22px; height: 22px;
+      border-radius: 50%; background: var(--red-accent); cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,.22);
+    }
+    .rot-deg { min-width: 52px; text-align: center; font-weight: 700; color: var(--red-accent); }
+
+    /* ═══════════════════════════════════════════════
+       CHALLENGE 3 — Slider Puzzle
+    ═══════════════════════════════════════════════ */
+    .puz-wrap { width: 100%; }
+    .puz-imgbox {
+      position: relative; border-radius: 12px; overflow: hidden;
+      margin-bottom: 1.1rem; background: #eee;
+    }
+    .puz-imgbox img { width: 100%; display: block; }
+
+    /* white puzzle-piece cutout overlay */
+    .puz-hole {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      right: 60px;
+      width: 80px; height: 80px;
+      background: rgba(255,255,255,.55);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+    /* the draggable piece */
+    .puz-piece {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      left: 8px;
+      width: 80px; height: 80px;
+      border-radius: 8px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.3);
+      background-size: cover;
+      background-position: center;
+      filter: drop-shadow(0 0 4px rgba(0,0,0,.25));
+      cursor: grab;
+    }
+
+    /* slider track */
+    .puz-track {
+      display: flex; align-items: center; gap: .75rem;
+      background: #F4F4F4; padding: .9rem 1rem;
+      border-radius: 10px;
+    }
+    .puz-arrow { font-size: 1rem; color: var(--red-accent); flex-shrink: 0; }
+    input.puz-sl {
+      flex: 1; height: 7px; border-radius: 4px; outline: none;
+      -webkit-appearance: none; cursor: grab;
+      background: linear-gradient(90deg, var(--red-accent) 0%, #FFDEDE 100%);
+    }
+    input.puz-sl::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 28px; height: 28px;
+      border-radius: 50%; background: var(--red-accent); cursor: grab;
+      border: 4px solid #fff; box-shadow: 0 3px 8px rgba(0,0,0,.25);
+    }
+
+    /* ═══════════════════════════════════════════════
+       CHALLENGE 4 — Image Ordering (NO numbers,
+       randomised, clean grid)
+    ═══════════════════════════════════════════════ */
+    .ord-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: .85rem;
+      width: 100%;
+    }
+    @media (max-width: 480px) { .ord-grid { grid-template-columns: repeat(2,1fr); } }
+
+    .ord-item {
+      position: relative; border-radius: 10px;
+      cursor: grab; border: 2.5px solid transparent;
+      transition: transform .18s, box-shadow .18s;
+      overflow: hidden;
+    }
+    .ord-item:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,.12); }
+    .ord-item.dragging { opacity: .45; cursor: grabbing; }
+    .ord-item img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+    /* drag handle icon top-left */
+    .ord-handle {
+      position: absolute; top: 6px; left: 6px;
+      width: 20px; height: 20px;
+      background: rgba(0,0,0,.45); border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ord-handle svg { width: 12px; height: 12px; }
+
+    /* ═══════════════════════════════════════════════
+       CHALLENGE 5 — Draw Shape
+    ═══════════════════════════════════════════════ */
+    .draw-ref { width: 88px; height: 88px; opacity: .2; margin-bottom: 1.1rem; }
+    canvas.dc {
+      border: 2px solid #E5E5E5; border-radius: 12px;
+      cursor: crosshair; background: #FAFAFA;
+      max-width: 100%;
+    }
+    .draw-clear {
+      margin-top: .65rem; padding: .5rem 1.4rem;
+      background: #F0F0F0; border: 1px solid #DCDCDC;
+      border-radius: 8px; cursor: pointer; font-weight: 500; font-size: .88rem;
+    }
+    .draw-clear:hover { background: #E4E4E4; }
+
+    /* ═══════════════════════════════════════════════
+       CHALLENGE 6 — Hold to Verify
+       Multi-ring halo + SVG progress arc,
+       warm red→ivory theme on complete
+    ═══════════════════════════════════════════════ */
+    .hold-scene { display: flex; flex-direction: column; align-items: center; }
+
+    .hold-outer {
+      position: relative;
+      width: 220px; height: 220px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.1rem;
+    }
+
+    /* background concentric rings (matching the reference) */
+    .hold-rings {
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, rgba(197,43,26,.06)  0%,  transparent 42%),
+        radial-gradient(circle, rgba(197,43,26,.04) 50%,  transparent 68%),
+        radial-gradient(circle, rgba(197,43,26,.025) 68%, transparent 100%);
+    }
+
+    /* SVG progress ring */
+    .hold-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hold-track { fill: none; stroke: rgba(197,43,26,.15); stroke-width: 6; }
+    .hold-ring  {
+      fill: none; stroke: var(--red-accent); stroke-width: 6;
+      stroke-linecap: round;
+      transform: rotate(-90deg); transform-origin: 50% 50%;
+      transition: stroke-dashoffset .06s linear;
+    }
+
+    /* inner button disk */
+    .hold-btn {
+      position: relative; z-index: 2;
+      width: 156px; height: 156px; border-radius: 50%;
+      background: linear-gradient(145deg, #E8625A, var(--red-accent));
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      cursor: pointer; color: #fff;
+      box-shadow: 0 10px 30px rgba(197,43,26,.35);
+      user-select: none; -webkit-user-select: none;
+      transition: transform .12s, background .4s;
+    }
+    .hold-btn:active { transform: scale(.96); }
+    /* warm ivory shade when completed — same theme, not green */
+    .hold-btn.done {
+      background: linear-gradient(145deg, #B84040, #8B2020);
+      box-shadow: 0 10px 30px rgba(139,32,32,.35);
+    }
+
+    .hold-fp { width: 62px; height: 62px; margin-bottom: .55rem; pointer-events: none; }
+    .hold-secs { font-size: 1.75rem; font-weight: 700; line-height: 1; }
+
+    /* "Hold to verify" pill below */
+    .hold-pill {
+      display: inline-flex; align-items: center; gap: .6rem;
+      border: 1.5px solid #E0DDD7; border-radius: 999px;
+      padding: .55rem 1.25rem;
+      font-size: .9rem; font-weight: 500; color: var(--near-black);
+      background: #fff; margin-top: .25rem;
+    }
+
+    /* ═══════════════════════════════════════════════
+       NEXT BUTTON
+    ═══════════════════════════════════════════════ */
+    .btn-nxt {
+      width: 100%; margin-top: 1.5rem;
+      padding: .9rem; border-radius: 9px; border: none;
+      font-size: .95rem; font-weight: 600; cursor: pointer;
+      background: var(--red-accent); color: #fff;
+      transition: background .2s, transform .15s;
+    }
+    .btn-nxt:hover { background: var(--red-deep); transform: translateY(-1px); }
+    .btn-nxt:disabled { background: #DCDCDC; color: #999; cursor: not-allowed; transform: none; }
+
+    /* ═══════════════════════════════════════════════
+       RIGHT SIDEBAR
+    ═══════════════════════════════════════════════ */
+    .det-col .pg-card { padding: 1.4rem; position: sticky; top: 100px; }
+    .det-hed { font-size: 1rem; font-weight: 600; margin-bottom: 1.2rem; }
+    .det-row { margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 1px solid #F0F0F0; }
+    .det-row:last-child { border: none; margin-bottom: 0; padding-bottom: 0; }
+    .det-lbl { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: #888; margin-bottom: .35rem; }
+    .det-val { font-size: .88rem; color: var(--near-black); line-height: 1.6; }
+    .pill-ip   { display: inline-block; padding: .28rem .75rem; border-radius: 999px; font-size: .75rem; font-weight: 600; background: #E3F2FD; color: #1565C0; }
+    .pill-done { background: #EBF5EC; color: #1B5E20; }
+
+    /* ═══════════════════════════════════════════════
+       SUCCESS SCREEN
+    ═══════════════════════════════════════════════ */
+    .success-wrap { text-align: center; padding: 2rem 0; }
+    .suc-circle {
+      width: 86px; height: 86px; margin: 0 auto 1.5rem;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #5C8A6A, #3A6B50);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 8px 26px rgba(58,107,80,.28);
+      animation: popIn .55s cubic-bezier(.68,-.55,.27,1.55);
+    }
+    @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+    .success-wrap h2 { font-size: 1.9rem; margin-bottom: .35rem; }
+    .suc-tag  { font-size: 1.05rem; color: #3A6B50; font-weight: 600; margin-bottom: .65rem; }
+    .res-box  { background: #F7F7F7; border-radius: 12px; padding: 1.1rem; text-align: left; max-width: 360px; margin: 1.25rem auto; }
+    .res-row  { display: flex; justify-content: space-between; padding: .55rem 0; border-bottom: 1px solid #EBEBEB; font-size: .88rem; }
+    .res-row:last-child { border: none; }
+    .res-good { color: #3A6B50; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header id="site-header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/images/logo-fingerprint.png" alt="Logo" class="logo-icon" width="28" height="28" />
+        <span class="logo-text"><span class="logo-dark">Biometrika-</span><span class="logo-red">Core</span></span>
+      </a>
+      <nav class="nav-right">
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="playground.html"   class="nav-link">Playground</a>
+        <a href="protection.html"   class="nav-link">Protection</a>
+        <a href="pricing.html"      class="nav-link">Pricing</a>
+        <a href="contact.html"      class="nav-link">Contact</a>
+        <a href="../auth/login.html" class="btn-signin">Sign In <span class="nav-arrow">→</span></a>
+      </nav>
+      <button class="nav-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="how-it-works.html">How It Works</a>
+    <a href="playground.html">Playground</a>
+    <a href="protection.html">Protection</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="../auth/login.html">Sign In</a>
+  </nav>
+
+  <main class="pg-wrap">
+    <div class="container">
+
+      <!-- Title -->
+      <div class="pg-title">
+        <h1>Human Verification Playground</h1>
+        <p>Explore different ways to distinguish real human interactions from automated activity</p>
+      </div>
+
+      <!-- Mobile challenge tabs -->
+      <div class="mob-tabs" id="mob-tabs"></div>
+
+      <!-- Three column grid -->
+      <div class="pg-grid">
+
+        <!-- LEFT -->
+        <div class="left-col">
+          <div class="pg-card" style="position:sticky;top:100px;">
+            <div class="sidebar-ttl">CHALLENGES</div>
+            <div class="ch-item active" data-n="1" onclick="loadCh(1)"><div class="ch-dot" id="sd1">1</div><div class="ch-label">Click to Verify</div></div>
+            <div class="ch-item"        data-n="2" onclick="loadCh(2)"><div class="ch-dot" id="sd2">2</div><div class="ch-label">Rotate Image</div></div>
+            <div class="ch-item"        data-n="3" onclick="loadCh(3)"><div class="ch-dot" id="sd3">3</div><div class="ch-label">Slider Puzzle</div></div>
+            <div class="ch-item"        data-n="4" onclick="loadCh(4)"><div class="ch-dot" id="sd4">4</div><div class="ch-label">Image Ordering</div></div>
+            <div class="ch-item"        data-n="5" onclick="loadCh(5)"><div class="ch-dot" id="sd5">5</div><div class="ch-label">Draw Shape</div></div>
+            <div class="ch-item"        data-n="6" onclick="loadCh(6)"><div class="ch-dot" id="sd6">6</div><div class="ch-label">Hold to Verify</div></div>
+          </div>
+        </div>
+
+        <!-- CENTER -->
+        <div class="center-col">
+          <div class="pg-card" style="padding:0;min-height:540px;">
+            <!-- card header -->
+            <div class="card-bar">
+              <div class="card-logo-row">
+                <img src="../assets/playground/Biometrika-Core-logo.png" alt="Logo">
+                <span class="card-logo-txt">Biometrika-<span style="color:var(--red-accent)">Core</span></span>
+              </div>
+              <div class="card-step-txt">Step <span id="step-n">1</span> of 6</div>
+            </div>
+            <!-- progress bar -->
+            <div class="card-prog">
+              <div class="cp on"></div><div class="cp"></div><div class="cp"></div>
+              <div class="cp"></div><div class="cp"></div><div class="cp"></div>
+            </div>
+            <!-- body -->
+            <div class="card-body" id="card-body"></div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div class="det-col">
+          <div class="pg-card" style="position:sticky;top:100px;padding:1.4rem;">
+            <div class="det-hed">Challenge Details</div>
+            <div class="det-row"><div class="det-lbl">STATUS</div><div class="det-val"><span class="pill-ip" id="d-status">In Progress</span></div></div>
+            <div class="det-row"><div class="det-lbl">TYPE</div><div class="det-val" id="d-type">Interaction</div></div>
+            <div class="det-row"><div class="det-lbl">DIFFICULTY</div><div class="det-val" id="d-diff">Easy</div></div>
+            <div class="det-row"><div class="det-lbl">HOW IT WORKS</div><div class="det-val" id="d-how">Tests human-like click behavior. Bots click at exact coordinates with zero hesitation; humans show natural micro-movements.</div></div>
+            <div class="det-row"><div class="det-lbl">COMPLETION</div><div class="det-val" id="d-done">0 of 6 completed</div></div>
+          </div>
+        </div>
+
+      </div><!-- /pg-grid -->
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--ivory-alt);padding:4rem 0 2rem;margin-top:4rem;border-top:1px solid rgba(0,0,0,.06);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:3rem;">
+        <div>
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
+            <img src="../assets/images/logo-fingerprint.png" style="width:28px;height:28px;">
+            <strong style="font-size:1rem;">Biometrika-Core</strong>
+          </div>
+          <p style="color:var(--charcoal);font-size:.88rem;line-height:1.6;">Human-first security for the modern internet.</p>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Product</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="how-it-works.html" style="color:var(--charcoal);font-size:.88rem;">How It Works</a>
+            <a href="playground.html"   style="color:var(--charcoal);font-size:.88rem;">Playground</a>
+            <a href="protection.html"   style="color:var(--charcoal);font-size:.88rem;">Protection</a>
+            <a href="pricing.html"      style="color:var(--charcoal);font-size:.88rem;">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Company</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="about.html"   style="color:var(--charcoal);font-size:.88rem;">About Us</a>
+            <a href="contact.html" style="color:var(--charcoal);font-size:.88rem;">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Legal</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="privacy.html"  style="color:var(--charcoal);font-size:.88rem;">Privacy Policy</a>
+            <a href="terms.html"    style="color:var(--charcoal);font-size:.88rem;">Terms of Service</a>
+            <a href="security.html" style="color:var(--charcoal);font-size:.88rem;">Security</a>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:1.5rem;border-top:1px solid rgba(0,0,0,.08);text-align:center;">
+        <p style="margin:0;color:var(--charcoal);font-size:.88rem;">&copy; 2026 Biometrika-Core. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  /* ─────────── DATA ─────────────────────────────────────── */
+  const META = {
+    1:{type:'Interaction',        diff:'Easy',   how:'Tests human-like click behavior. Bots click at exact pixel coordinates with zero hesitation; humans show natural micro-movements and timing variations.'},
+    2:{type:'Visual Recognition', diff:'Easy',   how:'Analyzes spatial orientation. Humans recognize upright images via visual cortex processing; AI lacks this intuitive spatial understanding.'},
+    3:{type:'Puzzle Solving',     diff:'Medium', how:'Measures hand-eye coordination. Natural slider acceleration curves and micro-corrections are distinctly human signatures.'},
+    4:{type:'Sequence Recognition',diff:'Medium',how:'Tests logical and temporal reasoning. Drag interactions reveal natural decision pauses, movement trajectories, and correction behavior.'},
+    5:{type:'Motor Skills',       diff:'Hard',   how:'Analyzes fine motor control. Stroke variations, pressure patterns, and natural imperfections in curves are unique to human hands.'},
+    6:{type:'Sustained Interaction',diff:'Easy', how:'Measures continuous physical commitment. Natural micro-tremors during a hold separate humans from scripts that maintain perfect stillness.'}
+  };
+
+  const BASE = '../assets/playground/biometrica_captcha_assets/';
+
+  const ROT_IMGS = ['rotation_india_gate.png','rotation_lighthouse.png','rotation_taj_mahal.png','rotation_temple.png','rotation_windmill.png','rotation_lotus.png','rotation_macaw.png','rotation_mountain.png'];
+  const SLI_IMGS = ['slider_alpine_lake.png','slider_butterfly_flower.png','slider_puppy.png','slider_red_rose.png','slider_sports_car.png','slider_steam_train.png','slider_temple.png','slider_tropical_cove.png'];
+  const SEQ_SETS = [
+    ['sequence_mountain_lake_panorama_frame_1.png','sequence_mountain_lake_panorama_frame_2.png','sequence_mountain_lake_panorama_frame_3.png','sequence_mountain_lake_panorama_frame_4.png'],
+    ['sequence_puppy_growth_frame_1.png','sequence_puppy_growth_frame_2.png','sequence_puppy_growth_frame_3.png','sequence_puppy_growth_frame_4.png'],
+    ['sequence_sunflower_growth_frame_1.png','sequence_sunflower_growth_frame_2.png','sequence_sunflower_growth_frame_3.png','sequence_sunflower_growth_frame_4.png'],
+    ['sequence_taj_mahal_panorama_frame_1.png','sequence_taj_mahal_panorama_frame_2.png','sequence_taj_mahal_panorama_frame_3.png','sequence_taj_mahal_panorama_frame_4.png']
+  ];
+  const DRW_IMGS = ['draw_heart.png','draw_circle.png','draw_star.png','draw_triangle.png','draw_square.png','draw_butterfly.png','draw_hexagon.png','draw_spiral.png'];
+
+  const rand  = a => a[Math.floor(Math.random()*a.length)];
+  const shuf  = a => { const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; };
+
+  let cur=1, done=0, holdTmr=null;
+
+  /* ─────────── UI helpers ───────────────────────────────── */
+  function setBar(n){
+    document.getElementById('step-n').textContent = n;
+    document.querySelectorAll('.cp').forEach((s,i)=>s.classList.toggle('on',i<n));
+  }
+  function setMeta(n){
+    const m=META[n];
+    document.getElementById('d-type').textContent=m.type;
+    document.getElementById('d-diff').textContent=m.diff;
+    document.getElementById('d-how').textContent=m.how;
+    document.getElementById('d-done').textContent=done+' of 6 completed';
+    const p=document.getElementById('d-status');
+    p.textContent='In Progress'; p.className='pill-ip';
+  }
+  function setSidebar(n){
+    document.querySelectorAll('.ch-item').forEach(el=>{
+      const num=parseInt(el.dataset.n);
+      el.classList.toggle('active',num===n);
+      el.classList.toggle('done',num<n);
+      const dot=document.getElementById('sd'+num);
+      if(num<n){ dot.textContent='✓'; dot.style.cssText='background:#5C8A6A;color:#fff;'; }
+      else if(num===n){ dot.textContent=num; dot.style.cssText='background:var(--red-accent);color:#fff;'; }
+      else { dot.textContent=num; dot.style.cssText=''; }
+    });
+    // mobile tabs
+    document.querySelectorAll('.mob-tab').forEach(t=>{
+      t.classList.toggle('active',parseInt(t.dataset.n)===n);
+    });
+  }
+
+  /* ─────────── Main loader ──────────────────────────────── */
+  function loadCh(n){
+    if(holdTmr){clearInterval(holdTmr);holdTmr=null;}
+    cur=n;
+    setBar(n); setMeta(n); setSidebar(n);
+    const body=document.getElementById('card-body');
+    body.innerHTML='';
+    [null,ch1,ch2,ch3,ch4,ch5,ch6][n](body);
+  }
+  function nxt(){ done++; cur<6 ? loadCh(cur+1) : showSuccess(); }
+
+  /* ─────────── Challenge 1 — Click to Verify ───────────── */
+  function ch1(B){
+    B.innerHTML=`
+      <div class="ch-title">Click to verify</div>
+      <div class="ch-desc">Click the widget below to prove you're human</div>
+      <div class="cw-wrap" id="cw" onclick="doVerify()">
+        <div class="cw-rings">
+          <div class="cw-ring"></div>
+          <div class="cw-ring"></div>
+          <div class="cw-ring"></div>
+          <div class="cw-box" id="cw-box">
+            <div class="cw-loader" id="cw-loader"></div>
+            <svg class="cw-svg" id="cw-chk" width="13" height="13" viewBox="0 0 13 13">
+              <polyline points="2,7 5.5,10.5 11,3" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="cw-text">
+          <strong>Prove you are not an <span style="color:var(--red-accent)">AI Bot</span></strong>
+          <span>Biometrica-Core Verification</span>
+        </div>
+        <div class="cw-brand">
+          <img src="../assets/playground/Biometrika-Core-logo.png" alt="Logo">
+          <span class="cw-brand-name">Biometrica-<span style="color:var(--red-accent)">Core</span></span>
+        </div>
+      </div>
+      <button class="btn-nxt" id="b1" disabled onclick="nxt()">Next →</button>
+    `;
+  }
+  function doVerify(){
+    const w=document.getElementById('cw');
+    if(w.classList.contains('loading')||w.classList.contains('done')) return;
+    w.classList.add('loading');
+    // show spinner 700ms then checkmark
+    setTimeout(()=>{
+      w.classList.remove('loading');
+      w.classList.add('done');
+      document.getElementById('cw-box').style.cssText='border-color:#5C8A6A;background:#5C8A6A;display:flex;align-items:center;justify-content:center;';
+      document.getElementById('cw-chk').style.display='block';
+      document.getElementById('cw-loader').style.display='none';
+      document.getElementById('b1').disabled=false;
+    },700);
+  }
+
+  /* ─────────── Challenge 2 — Rotate ─────────────────────── */
+  function ch2(B){
+    const img=rand(ROT_IMGS);
+    const start=Math.floor(Math.random()*300)+30;
+    B.innerHTML=`
+      <div class="ch-title">Rotate the image</div>
+      <div class="ch-desc">Rotate the image to make it upright</div>
+      <div class="ch-area">
+        <img id="ri" class="rot-img" src="${BASE}${img}" style="transform:rotate(${start}deg)">
+        <div class="rot-row">
+          <span class="rot-icon">↻</span>
+          <input type="range" id="rs" class="rot-sl" min="0" max="360" value="${start}">
+          <span class="rot-icon">↺</span>
+        </div>
+        <div class="rot-deg"><span id="rd">${start}</span>°</div>
+      </div>
+      <button class="btn-nxt" onclick="nxt()">Next →</button>
+    `;
+    const sl=document.getElementById('rs');
+    sl.addEventListener('input',()=>{
+      document.getElementById('ri').style.transform=`rotate(${sl.value}deg)`;
+      document.getElementById('rd').textContent=sl.value;
+    });
+  }
+
+  /* ─────────── Challenge 3 — Slider Puzzle ──────────────── */
+  function ch3(B){
+    const img=rand(SLI_IMGS);
+    B.innerHTML=`
+      <div class="ch-title">Slide to complete the puzzle</div>
+      <div class="ch-desc">Move the slider to fit the missing piece into place</div>
+      <div class="ch-area" style="width:100%">
+        <div class="puz-wrap">
+          <div class="puz-imgbox" id="pib">
+            <img id="pimg" src="${BASE}${img}" alt="puzzle">
+            <div class="puz-hole"></div>
+            <div class="puz-piece" id="pp" style="background-image:url('${BASE}${img}')"></div>
+          </div>
+          <div class="puz-track">
+            <span class="puz-arrow">&#8592;</span>
+            <input type="range" id="ps" class="puz-sl" min="0" max="100" value="0">
+            <span class="puz-arrow">&#8594;</span>
+          </div>
+        </div>
+      </div>
+      <button class="btn-nxt" onclick="nxt()">Next →</button>
+    `;
+    const sl=document.getElementById('ps');
+    sl.addEventListener('input',()=>{
+      const box=document.getElementById('pib');
+      const maxL=box.offsetWidth-88;
+      document.getElementById('pp').style.left=(sl.value/100*maxL)+'px';
+    });
+  }
+
+  /* ─────────── Challenge 4 — Image Ordering ─────────────── */
+  function ch4(B){
+    const seq=rand(SEQ_SETS);
+    const shuffled=shuf(seq); // always random order, no numbers
+    B.innerHTML=`
+      <div class="ch-title">Arrange images in correct order</div>
+      <div class="ch-desc">Drag images to arrange them from first to last</div>
+      <div class="ch-area" style="width:100%">
+        <div class="ord-grid" id="og">
+          ${shuffled.map(f=>`
+            <div class="ord-item" draggable="true">
+              <img src="${BASE}${f}" alt="">
+              <div class="ord-handle"><svg viewBox="0 0 12 12" fill="#fff"><circle cx="3" cy="3" r="1.2"/><circle cx="9" cy="3" r="1.2"/><circle cx="3" cy="9" r="1.2"/><circle cx="9" cy="9" r="1.2"/></svg></div>
+            </div>`).join('')}
+        </div>
+      </div>
+      <button class="btn-nxt" onclick="nxt()">Next →</button>
+    `;
+    initDrag();
+  }
+  function initDrag(){
+    const g=document.getElementById('og');
+    let dragged=null;
+    g.querySelectorAll('.ord-item').forEach(it=>{
+      it.addEventListener('dragstart',()=>{ dragged=it; it.classList.add('dragging'); });
+      it.addEventListener('dragend',()=>it.classList.remove('dragging'));
+      it.addEventListener('dragover',e=>e.preventDefault());
+      it.addEventListener('drop',e=>{
+        e.preventDefault();
+        if(dragged&&dragged!==it){
+          const all=[...g.children];
+          all.indexOf(dragged)<all.indexOf(it) ? it.after(dragged) : it.before(dragged);
+        }
+      });
+    });
+  }
+
+  /* ─────────── Challenge 5 — Draw Shape ─────────────────── */
+  function ch5(B){
+    const shape=rand(DRW_IMGS);
+    B.innerHTML=`
+      <div class="ch-title">Draw a simple shape</div>
+      <div class="ch-desc">Draw the shape shown below in the canvas</div>
+      <div class="ch-area">
+        <img src="${BASE}${shape}" class="draw-ref">
+        <canvas id="dc" class="dc" width="340" height="300"></canvas>
+        <button class="draw-clear" onclick="clrCanvas()">Clear</button>
+      </div>
+      <button class="btn-nxt" onclick="nxt()">Next →</button>
+    `;
+    initCanvas();
+  }
+  function initCanvas(){
+    const cv=document.getElementById('dc');
+    const ctx=cv.getContext('2d');
+    let dn=false;
+    ctx.strokeStyle='#C52B1A'; ctx.lineWidth=3.5; ctx.lineCap='round'; ctx.lineJoin='round';
+    const xy=e=>{ const r=cv.getBoundingClientRect(),s=e.touches?e.touches[0]:e; return[s.clientX-r.left,s.clientY-r.top]; };
+    cv.addEventListener('mousedown', e=>{dn=true;ctx.beginPath();ctx.moveTo(...xy(e));});
+    cv.addEventListener('mousemove', e=>{if(!dn)return;ctx.lineTo(...xy(e));ctx.stroke();});
+    cv.addEventListener('mouseup',   ()=>dn=false);
+    cv.addEventListener('mouseleave',()=>dn=false);
+    cv.addEventListener('touchstart',e=>{e.preventDefault();dn=true;ctx.beginPath();ctx.moveTo(...xy(e));},{passive:false});
+    cv.addEventListener('touchmove', e=>{if(!dn)return;e.preventDefault();ctx.lineTo(...xy(e));ctx.stroke();},{passive:false});
+    cv.addEventListener('touchend',  ()=>dn=false);
+  }
+  function clrCanvas(){
+    const cv=document.getElementById('dc');
+    cv.getContext('2d').clearRect(0,0,cv.width,cv.height);
+  }
+
+  /* ─────────── Challenge 6 — Hold to Verify ─────────────── */
+  function ch6(B){
+    const C=2*Math.PI*100;   // circumference for r=100
+    B.innerHTML=`
+      <div class="ch-title">Press and hold for 3 seconds</div>
+      <div class="ch-desc">Press and hold the button until it completes</div>
+      <div class="ch-area hold-scene">
+        <div class="hold-outer">
+          <div class="hold-rings"></div>
+          <svg class="hold-svg" viewBox="0 0 220 220">
+            <circle class="hold-track" r="100" cx="110" cy="110"/>
+            <circle id="hring" class="hold-ring" r="100" cx="110" cy="110"
+              stroke-dasharray="${C.toFixed(2)}"
+              stroke-dashoffset="${C.toFixed(2)}"/>
+          </svg>
+          <div class="hold-btn" id="hbtn">
+            <img class="hold-fp" src="../assets/playground/fingerprint-press-hold-white.png">
+            <div class="hold-secs"><span id="ht">3.0</span>s</div>
+          </div>
+        </div>
+        <div class="hold-pill">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          Hold to verify
+        </div>
+      </div>
+      <button class="btn-nxt" id="bh" disabled onclick="nxt()">Complete →</button>
+    `;
+    const btn=document.getElementById('hbtn');
+    const tmr=document.getElementById('ht');
+    const ring=document.getElementById('hring');
+    const next=document.getElementById('bh');
+    let t=3.0;
+    const stop=()=>{
+      if(t>0){clearInterval(holdTmr);holdTmr=null;t=3.0;tmr.textContent='3.0';ring.style.strokeDashoffset=C.toFixed(2);}
+    };
+    const start=()=>{
+      if(holdTmr)return;
+      holdTmr=setInterval(()=>{
+        t=Math.max(0,t-.05);
+        tmr.textContent=t.toFixed(1);
+        ring.style.strokeDashoffset=(C-(3-t)/3*C).toFixed(2);
+        if(t<=0){
+          clearInterval(holdTmr);holdTmr=null;
+          btn.classList.add('done');
+          next.disabled=false;
+        }
+      },50);
+    };
+    btn.addEventListener('mousedown', start);
+    btn.addEventListener('mouseup',   stop);
+    btn.addEventListener('mouseleave',stop);
+    btn.addEventListener('touchstart',e=>{e.preventDefault();start();},{passive:false});
+    btn.addEventListener('touchend',  stop);
+  }
+
+  /* ─────────── Success ───────────────────────────────────── */
+  function showSuccess(){
+    document.getElementById('step-n').textContent='✓';
+    document.querySelectorAll('.cp').forEach(s=>s.classList.add('on'));
+    document.querySelectorAll('.ch-item .ch-dot').forEach(d=>{d.textContent='✓';d.style.cssText='background:#5C8A6A;color:#fff;';});
+    const p=document.getElementById('d-status'); p.textContent='Verified Human'; p.className='pill-ip pill-done';
+    document.getElementById('d-done').textContent='6 of 6 completed';
+    document.getElementById('card-body').innerHTML=`
+      <div class="success-wrap">
+        <div class="suc-circle">
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h2>Verification Complete!</h2>
+        <p class="suc-tag">&#10003; Verified as HUMAN</p>
+        <p style="color:var(--charcoal);margin-bottom:1.5rem;">All behavioral signals match natural human interaction patterns.</p>
+        <div class="res-box">
+          <div class="res-row"><span>Interaction Pattern</span><span class="res-good">Human</span></div>
+          <div class="res-row"><span>Behavioral Score</span><span class="res-good">96 / 100</span></div>
+          <div class="res-row"><span>Movement Analysis</span><span class="res-good">Natural</span></div>
+          <div class="res-row"><span>Timing Pattern</span><span class="res-good">Human-like</span></div>
+          <div class="res-row"><span>Risk Level</span><span class="res-good">Low</span></div>
+        </div>
+        <button class="btn-nxt" onclick="location.reload()">Try Again →</button>
+      </div>
+    `;
+  }
+
+  /* ─────────── Init ──────────────────────────────────────── */
+  document.addEventListener('DOMContentLoaded',()=>{
+    // build mobile tabs
+    const tabWrap=document.getElementById('mob-tabs');
+    ['Click to Verify','Rotate Image','Slider Puzzle','Image Ordering','Draw Shape','Hold to Verify'].forEach((name,i)=>{
+      const t=document.createElement('button');
+      t.className='mob-tab'+(i===0?' active':'');
+      t.dataset.n=i+1; t.textContent=name;
+      t.onclick=()=>loadCh(i+1);
+      tabWrap.appendChild(t);
+    });
+
+    loadCh(1);
+
+    document.getElementById('hamburger-btn').addEventListener('click',function(){
+      this.classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+  });
+  </script>
+</body>
+</html>

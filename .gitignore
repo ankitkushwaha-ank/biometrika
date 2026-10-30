@@ -1,0 +1,16 @@
+﻿# Windows
+desktop.ini
+Thumbs.db
+*.lnk
+
+# Mac
+.DS_Store
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Temp / internal
+resorce_image/
+tets

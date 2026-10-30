@@ -1,0 +1,50 @@
+/* Biometrika-Core Global Styles */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --ivory: #F6F2EC;
+  --ivory-alt: #FBF9F6;
+  --red-primary: #C52B1A;
+  --red-deep: #B51F13;
+  --near-black: #111111;
+  --charcoal: #68645F;
+  --border: rgba(25, 20, 16, 0.14);
+  --font-serif: 'Playfair Display', serif;
+  --font-sans: 'DM Sans', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-sans); background: var(--ivory); color: var(--near-black); line-height: 1.6; }
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.container { max-width: 1280px; margin: 0 auto; padding: 0 clamp(1.25rem, 5vw, 5rem); }
+.btn-red { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--red-primary); color: #fff; padding: 0.75rem 1.5rem; border-radius: 999px; font-weight: 500; border: none; cursor: pointer; transition: all 0.2s; }
+.btn-red:hover { background: var(--red-deep); transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 1.5px solid var(--near-black); color: var(--near-black); padding: 0.72rem 1.4rem; border-radius: 999px; display: inline-flex; align-items: center; gap: 0.5rem; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+.btn-outline:hover { background: var(--near-black); color: #fff; }
+
+header { position: fixed; top: 0; width: 100%; background: rgba(246,242,236,0.92); backdrop-filter: blur(10px); z-index: 100; border-bottom: 1px solid var(--border); }
+.header-inner { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+.logo { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; font-size: 1.1rem; }
+.logo img { width: 28px; height: 28px; }
+.logo .core { color: var(--red-primary); }
+nav { display: flex; gap: 2rem; align-items: center; }
+nav a { font-size: 0.9rem; transition: opacity 0.2s; }
+nav a:hover { opacity: 0.6; }
+
+.page-hero { padding: 8rem 0 4rem; text-align: center; }
+.page-hero h1 { font-family: var(--font-serif); font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; }
+.page-hero p { color: var(--charcoal); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+
+footer { background: var(--near-black); color: #aaa; padding: 3rem 0; margin-top: 4rem; }
+.footer-content { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; }
+.footer-section h4 { color: #fff; margin-bottom: 1rem; }
+.footer-section a { display: block; margin: 0.5rem 0; transition: color 0.2s; }
+.footer-section a:hover { color: #fff; }
+
+@media (max-width: 768px) {
+  nav { display: none; }
+  .page-hero { padding: 6rem 0 3rem; }
+}

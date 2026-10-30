@@ -1,0 +1,160 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Protection | Biometrika-Core</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-fingerprint.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <header id="site-header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="logo">
+        <img src="../assets/images/logo-fingerprint.png" alt="Biometrika-Core Logo" class="logo-icon" width="28" height="28" />
+        <span class="logo-text"><span class="logo-dark">Biometrika-</span><span class="logo-red">Core</span></span>
+      </a>
+      <nav class="nav-right">
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="playground.html" class="nav-link">Playground</a>
+        <a href="protection.html" class="nav-link">Protection</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="../auth/login.html" class="btn-signin">Sign In <span class="nav-arrow">→</span></a>
+      </nav>
+      <button class="nav-hamburger" id="hamburger-btn"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu">
+        <a href="how-it-works.html">How It Works</a>
+    <a href="playground.html">Playground</a>
+    <a href="protection.html">Protection</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="../auth/login.html">Sign In</a>
+  </nav>
+
+  <main>
+  <div class="container">
+    <div class="page-hero">
+      <h1>Advanced Protection</h1>
+      <p>Comprehensive security against modern threats</p>
+    </div>
+
+    <div class="section">
+      <div class="card-grid">
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4" y="7" width="16" height="13" rx="4"/><path d="M9 12h.01M15 12h.01M9 16h6M12 3v4M2 12h2M20 12h2"/>
+            </svg>
+          </div>
+          <h3>AI Agent Detection</h3>
+          <p>Identifies and blocks autonomous AI browsers like GPT-4 Vision, Claude, and custom agents.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="5" r="2.5"/><circle cx="5" cy="18" r="2.5"/><circle cx="19" cy="18" r="2.5"/>
+              <path d="m10.8 7.2-4.5 8.5M13.2 7.2l4.5 8.5M7.5 18h9"/>
+            </svg>
+          </div>
+          <h3>Bot Network Protection</h3>
+          <p>Detects coordinated bot attacks using behavioral fingerprinting and network analysis.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="18" height="5" rx="2.5"/><rect x="3" y="10" width="18" height="5" rx="2.5"/><rect x="3" y="17" width="18" height="4" rx="2"/>
+            </svg>
+          </div>
+          <h3>Web Scraper Defense</h3>
+          <p>Stops automated data harvesting while allowing legitimate search engine crawlers.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2 20 5v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3Z"/><path d="m8.5 12 2.3 2.3 4.8-5"/>
+            </svg>
+          </div>
+          <h3>Credential Stuffing Prevention</h3>
+          <p>Blocks automated login attempts with behavioral analysis at the authentication layer.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <h3>Behavioral Analysis</h3>
+          <p>Continuous monitoring of mouse movement, typing patterns, and interaction timing.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <h3>Dynamic Risk Scoring</h3>
+          <p>Real-time risk assessment combining behavioral signals and device fingerprints.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  </main>
+
+  <script>
+    document.getElementById('hamburger-btn')?.addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer style="background:var(--ivory-alt);padding:4rem 0 2rem;margin-top:4rem;border-top:1px solid rgba(0,0,0,.06);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:3rem;">
+        <div>
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
+            <img src="../assets/images/logo-fingerprint.png" style="width:28px;height:28px;">
+            <strong style="font-size:1rem;">Biometrika-Core</strong>
+          </div>
+          <p style="color:var(--charcoal);font-size:.88rem;line-height:1.6;">Human-first security for the modern internet.</p>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Product</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="how-it-works.html" style="color:var(--charcoal);font-size:.88rem;">How It Works</a>
+            <a href="playground.html" style="color:var(--charcoal);font-size:.88rem;">Playground</a>
+            <a href="protection.html" style="color:var(--charcoal);font-size:.88rem;">Protection</a>
+            <a href="pricing.html" style="color:var(--charcoal);font-size:.88rem;">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Company</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="about.html" style="color:var(--charcoal);font-size:.88rem;">About Us</a>
+            <a href="contact.html" style="color:var(--charcoal);font-size:.88rem;">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Legal</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="privacy.html" style="color:var(--charcoal);font-size:.88rem;">Privacy Policy</a>
+            <a href="terms.html" style="color:var(--charcoal);font-size:.88rem;">Terms of Service</a>
+            <a href="security.html" style="color:var(--charcoal);font-size:.88rem;">Security</a>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:1.5rem;border-top:1px solid rgba(0,0,0,.08);text-align:center;">
+        <p style="margin:0;color:var(--charcoal);font-size:.88rem;">&copy; 2026 Biometrika-Core. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

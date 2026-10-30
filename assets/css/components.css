@@ -1,0 +1,31 @@
+/* Reusable Components */
+
+.card { background: #fff; border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+
+.section { padding: 4rem 0; }
+.section-title { font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1rem; }
+.section-desc { color: var(--charcoal); font-size: 1.05rem; max-width: 700px; margin-bottom: 2rem; }
+
+.feature-icon { width: 48px; height: 48px; background: var(--ivory-alt); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1rem; }
+
+.badge { display: inline-block; padding: 0.25rem 0.75rem; background: var(--ivory-alt); border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+.badge.easy { background: #D4EDDA; color: #155724; }
+.badge.medium { background: #FFF3CD; color: #856404; }
+.badge.hard { background: #F8D7DA; color: #721C24; }
+
+.tabs { display: flex; gap: 0.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+.tab { padding: 0.75rem 1.5rem; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.2s; }
+.tab.active { border-bottom-color: var(--red-primary); color: var(--red-primary); font-weight: 600; }
+
+.input { width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border); border-radius: 8px; font-family: var(--font-sans); font-size: 0.95rem; }
+.input:focus { outline: none; border-color: var(--red-primary); }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 200; }
+.modal-overlay.open { display: flex; }
+.modal { background: var(--ivory); border-radius: 16px; padding: 2.5rem; max-width: 500px; width: 90%; position: relative; }
+.modal-close { position: absolute; top: 1rem; right: 1rem; width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border); background: none; cursor: pointer; font-size: 1.2rem; }
+
+.code-block { background: #1e1e1e; color: #d4d4d4; padding: 1.5rem; border-radius: 8px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.9rem; position: relative; }
+.code-block .copy-btn { position: absolute; top: 1rem; right: 1rem; padding: 0.5rem 1rem; background: #333; color: #fff; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; }
+.code-block .copy-btn:hover { background: #444; }

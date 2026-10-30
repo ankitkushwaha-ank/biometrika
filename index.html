@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Biometrika-Core — Built for a human internet</title>
+  <meta name="description" content="Biometrika-Core stops AI agents, bots and scrapers before they reach your site using natural human behavioral signals." />
+
+  <!-- Favicon: Red Fingerprint Logo -->
+  <link rel="icon" type="image/png" href="assets/images/logo-fingerprint.png" />
+  <link rel="apple-touch-icon" href="assets/images/logo-fingerprint.png" />
+
+  <!-- Google Fonts: Playfair Display & DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER / NAVIGATION
+  ============================================================ -->
+  <header id="site-header" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="Biometrika-Core home">
+        <img
+          src="assets/images/logo-fingerprint.png"
+          alt="Biometrika-Core Logo"
+          class="logo-icon"
+          width="28"
+          height="28"
+        />
+        <span class="logo-text">
+          <span class="logo-dark">Biometrika-</span><span class="logo-red">Core</span>
+        </span>
+      </a>
+
+      <nav class="nav-right" aria-label="Primary navigation">
+        <a href="pages/how-it-works.html" class="nav-link">How It Works</a>
+        <a href="pages/playground.html" class="nav-link">Playground</a>
+        <a href="pages/protection.html" class="nav-link">Protection</a>
+        <a href="pages/pricing.html" class="nav-link">Pricing</a>
+        <a href="pages/contact.html" class="nav-link">Contact</a>
+        <a href="auth/login.html" class="btn-signin" id="btn-signin-header" aria-label="Sign In">
+          Sign In
+          <span class="nav-arrow" aria-hidden="true">→</span>
+        </a>
+      </nav>
+
+      <!-- Mobile hamburger toggle -->
+      <button class="nav-hamburger" id="hamburger-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Dropdown Menu -->
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+    <a href="pages/how-it-works.html">How It Works</a>
+    <a href="pages/playground.html">Playground</a>
+    <a href="pages/protection.html">Protection</a>
+    <a href="pages/pricing.html">Pricing</a>
+    <a href="pages/contact.html">Contact</a>
+    <a href="auth/login.html" class="btn-signin">Sign In →</a>
+  </nav>
+
+  <!-- ============================================================
+       SECTION 1 — HERO (FULL SCREEN)
+  ============================================================ -->
+  <section id="hero" aria-label="Human-first security">
+    <!-- Full-screen hero background with 3D architecture, portal & glass panels -->
+    <div class="hero-bg" role="img" aria-label="Futuristic concrete portal with layered glass panels and glowing red fingerprint"></div>
+
+    <!-- Floating Threat Labels (Right side overlay) -->
+    <div class="hero-threat-labels" aria-hidden="true">
+      <div class="threat-label"><span class="threat-dot"></span> AI AGENTS</div>
+      <div class="threat-label"><span class="threat-dot"></span> BOTS</div>
+      <div class="threat-label"><span class="threat-dot"></span> SCRAPERS</div>
+    </div>
+
+    <!-- Hero Content (Left side, perfectly aligned with header logo) -->
+    <div class="hero-content-wrapper">
+      <div class="container hero-container">
+        <div class="hero-left">
+          <p class="eyebrow hero-eyebrow">HUMAN-FIRST SECURITY</p>
+
+          <h1 class="hero-headline">
+            Built for a<br />
+            <span class="typing-text red" id="typing-text">human</span><br />
+            internet.
+          </h1>
+
+          <p class="hero-desc">
+            Biometrika-Core stops AI agents, bots and scrapers before they reach your site.
+          </p>
+
+          <button class="btn-red" id="btn-protect-hero" aria-label="Protect Website" onclick="window.location.href='auth/register.html'">
+            Protect Website
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+
+          <!-- Inline feature items positioned directly on the reflective ground, matching reference -->
+          <div class="hero-feature-inline" aria-label="Key security attributes">
+            <div class="feature-inline-item">Human Behavior</div>
+            <div class="feature-inline-item">Real-Time Protection</div>
+            <div class="feature-inline-item">Invisible Security</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 2 — BIOMECHANICAL VERIFICATION
+  ============================================================ -->
+  <section id="verification" aria-label="Biomechanical verification">
+    <div class="container">
+      <div class="verification-grid">
+
+        <!-- Left Copy -->
+        <div class="verification-left">
+          <p class="eyebrow">BIOMECHANICAL VERIFICATION</p>
+          <h2 class="section-headline">
+            Prove you<br />
+            are a <span class="red">human.</span>
+          </h2>
+          <p class="section-desc">
+            A quick, invisible check based on your natural interaction.
+          </p>
+          <button class="btn-pill-white" id="btn-try-live" aria-label="Try It Live" onclick="window.location.href='pages/playground.html'">
+            <span class="play-circle" aria-hidden="true">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="white">
+                <path d="M3 2l5 3-5 3V2z"/>
+              </svg>
+            </span>
+            Try It Live
+          </button>
+        </div>
+
+        <!-- Right — 2-Column Demo Container Card -->
+        <div class="verification-right">
+          <div class="demo-card-container">
+            
+            <!-- Left: Trajectory Canvas -->
+            <div class="demo-canvas-box" aria-label="Human movement trajectory demonstration">
+              <svg
+                id="demo-svg"
+                width="100%"
+                height="100%"
+                viewBox="0 0 320 180"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <defs>
+                  <pattern id="dotPattern" x="0" y="0" width="16" height="16" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="0.8" fill="#E2DCD5" />
+                  </pattern>
+                  <radialGradient id="redGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#C52B1A" stop-opacity="0.45" />
+                    <stop offset="60%" stop-color="#C52B1A" stop-opacity="0.15" />
+                    <stop offset="100%" stop-color="#C52B1A" stop-opacity="0" />
+                  </radialGradient>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#dotPattern)" opacity="0.6" rx="8" />
+
+                <!-- Smooth Natural Human Mouse Trajectory Curve -->
+                <path
+                  id="traj-path"
+                  d="M 45 135 C 75 90, 110 65, 145 75 C 180 85, 205 120, 240 70 C 255 50, 265 42, 275 38"
+                  stroke="#111111"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  fill="none"
+                />
+
+                <!-- Start point: Red circle with halo -->
+                <circle cx="45" cy="135" r="10" fill="#C52B1A" fill-opacity="0.18" />
+                <circle cx="45" cy="135" r="4.5" fill="#C52B1A" />
+
+                <!-- Intermediate Control Points -->
+                <circle cx="145" cy="75" r="3.2" fill="#111111" />
+                <circle cx="218" cy="102" r="3.2" fill="#111111" />
+
+                <!-- Destination Target: Glowing red orb + cursor -->
+                <g id="traj-cursor">
+                  <circle cx="275" cy="38" r="22" fill="url(#redGlow)" />
+                  <circle cx="275" cy="38" r="8" fill="#C52B1A" fill-opacity="0.3" />
+                  <circle cx="275" cy="38" r="3" fill="#C52B1A" />
+                  <!-- Minimal dark cursor arrow pointing at the center -->
+                  <path
+                    d="M 275 36 L 275 52 L 280 47 L 284 54 L 286 53 L 282 46 L 288 46 Z"
+                    fill="#111111"
+                    stroke="#FFFFFF"
+                    stroke-width="0.8"
+                  />
+                </g>
+              </svg>
+            </div>
+
+            <!-- Right: 3 Feature Pills -->
+            <div class="demo-features-col">
+              
+              <div class="feature-pill-card">
+                <div class="pill-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M2 11c3-6 5-6 7 0s4 6 7 0" />
+                  </svg>
+                </div>
+                <span class="pill-title">Natural Movement</span>
+              </div>
+
+              <div class="feature-pill-card">
+                <div class="pill-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="4" width="14" height="10" rx="2" />
+                    <path d="M5 8h.01M9 8h.01M13 8h.01M6 11h6" />
+                  </svg>
+                </div>
+                <span class="pill-title">Typing Rhythm</span>
+              </div>
+
+              <div class="feature-pill-card">
+                <div class="pill-icon" aria-hidden="true">
+                  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M4 3l4.5 11 2-4.5 4.5-2L4 3z" />
+                  </svg>
+                </div>
+                <span class="pill-title">Interaction Flow</span>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<!-- ============================================================
+       SECTION 3 — INTELLIGENT PROTECTION (EXPANDED)
+  ============================================================ -->
+  <section class="intelligent-protection" id="intelligent-protection" aria-label="Intelligent protection">
+    <div class="protection-content">
+      <div class="protection-heading">
+        <div class="section-eyebrow">
+          <span>Intelligent Protection</span>
+          <span class="eyebrow-line"></span>
+        </div>
+
+        <h2>
+          Blocks modern<br>
+          <span>AI-driven</span><br>
+          attacks.
+        </h2>
+      </div>
+
+      <div class="protection-threats" role="list">
+        <div class="threat-item" role="listitem">
+          <span class="threat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="7" width="16" height="13" rx="4"/>
+              <path d="M9 12h.01M15 12h.01M9 16h6M12 3v4M2 12h2M20 12h2"/>
+            </svg>
+          </span>
+          <span>AI Agents</span>
+        </div>
+
+        <div class="threat-item" role="listitem">
+          <span class="threat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+              <rect x="3" y="3" width="18" height="5" rx="2.5"/>
+              <rect x="3" y="10" width="18" height="5" rx="2.5"/>
+              <rect x="3" y="17" width="18" height="4" rx="2"/>
+            </svg>
+          </span>
+          <span>Scrapers</span>
+        </div>
+
+        <div class="threat-item" role="listitem">
+          <span class="threat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="5" r="2.5"/>
+              <circle cx="5" cy="18" r="2.5"/>
+              <circle cx="19" cy="18" r="2.5"/>
+              <path d="m10.8 7.2-4.5 8.5M13.2 7.2l4.5 8.5M7.5 18h9"/>
+            </svg>
+          </span>
+          <span>Bot Networks</span>
+        </div>
+
+        <div class="threat-item" role="listitem">
+          <span class="threat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2 20 5v6c0 5-3.5 8.5-8 11-4.5-2.5-8-6-8-11V5l8-3Z"/>
+              <path d="m8.5 12 2.3 2.3 4.8-5"/>
+            </svg>
+          </span>
+          <span>Credential Stuffing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<!-- ============================================================
+       SECTION 4 — HOW IT WORKS (RIGHT-SIDE BACKGROUND IMAGE)
+  ============================================================ -->
+  <section id="how-it-works" aria-label="How it works">
+    <!-- Background image pinned to the right -->
+    <div class="how-bg" role="img" aria-label="Layered glass panels with fingerprint defense"></div>
+
+    <div class="container how-container">
+      <div class="how-top-eyebrow">
+        <p class="eyebrow">HOW IT WORKS</p>
+      </div>
+
+      <div class="how-grid">
+
+        <!-- Column 1: Copy & Button on the Left -->
+        <div class="how-left">
+          <h2 class="section-headline">
+            Real human<br />
+            signals, <span class="red">real defense.</span>
+          </h2>
+          <p class="section-desc">
+            We analyze natural human behavior signals that are hard for AI to imitate.
+          </p>
+          <button class="btn-outline" id="btn-see-how" aria-label="See How It Works" onclick="window.location.href='pages/how-it-works.html'">
+            See How It Works
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <!-- Column 2: Exact 3 Steps in the Middle -->
+        <div class="how-steps">
+          <div class="step-item">
+            <div class="step-num">01</div>
+            <div class="step-text">
+              Observe<br />
+              behavior
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num">02</div>
+            <div class="step-text">
+              Analyze<br />
+              in real-time
+            </div>
+          </div>
+
+          <div class="step-item">
+            <div class="step-num">03</div>
+            <div class="step-text">
+              Block<br />
+              suspicious traffic
+            </div>
+          </div>
+        </div>
+
+        <!-- Column 3: Callout Labels Layered on the Right over the background image -->
+        <div class="how-visual-col">
+          <div class="defense-callouts" aria-label="Defense layers">
+            <div class="callout-item">
+              <svg class="callout-line" width="55" height="24" viewBox="0 0 55 24" fill="none">
+                <path d="M0 20 L28 12 L50 12" stroke="#888" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="50" cy="12" r="2.5" fill="#111" />
+              </svg>
+              <span class="callout-text">BEHAVIOR ANALYSIS</span>
+            </div>
+
+            <div class="callout-item">
+              <svg class="callout-line" width="55" height="20" viewBox="0 0 55 20" fill="none">
+                <path d="M0 10 L50 10" stroke="#888" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="50" cy="10" r="2.5" fill="#111" />
+              </svg>
+              <span class="callout-text">RISK SCORING</span>
+            </div>
+
+            <div class="callout-item">
+              <svg class="callout-line" width="55" height="20" viewBox="0 0 55 20" fill="none">
+                <path d="M0 10 L50 10" stroke="#888" stroke-width="1.2" stroke-linecap="round"/>
+                <circle cx="50" cy="10" r="2.5" fill="#111" />
+              </svg>
+              <span class="callout-text">REAL-TIME VERIFICATION</span>
+            </div>
+
+            <div class="callout-item">
+              <svg class="callout-line" width="55" height="24" viewBox="0 0 55 24" fill="none">
+                <path d="M0 4 L28 12 L50 12" stroke="#888" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="50" cy="12" r="2.5" fill="#111" />
+              </svg>
+              <span class="callout-text">ACCESS DECISION</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       SECTION 5 — CLOSING CTA / LANDSCAPE
+  ============================================================ -->
+  <section id="cta-footer" aria-label="A safer internet">
+    <!-- Landscape background with brutalist architecture & misty reflections -->
+    <div class="footer-bg" role="img" aria-label="Brutalist concrete architecture reflected on water at dusk"></div>
+    <div class="footer-overlay" aria-hidden="true"></div>
+
+    <div class="container">
+      <div class="cta-inner">
+
+        <!-- Left Copy -->
+        <div class="cta-left">
+          <p class="eyebrow">A SAFER INTERNET</p>
+          <h2 class="cta-headline">Built for what’s next.</h2>
+          <p class="cta-desc">
+            Join thousands of websites staying ahead of AI-driven threats with Biometrika-Core.
+          </p>
+          <button class="btn-red" id="btn-protect-cta" aria-label="Protect Website" onclick="window.location.href='auth/register.html'">
+            Protect Website
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+
+        <!-- Right 4-Item List with Vertical Divider -->
+        <div class="cta-right">
+          <div class="cta-features-list" role="list">
+            <div class="cta-feature-item" role="listitem">HUMAN-FIRST</div>
+            <div class="cta-feature-item" role="listitem">PRIVACY RESPECTED</div>
+            <div class="cta-feature-item" role="listitem">REAL-TIME DEFENSE</div>
+            <div class="cta-feature-item" role="listitem">BUILT FOR AN AI ERA</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer" style="background: var(--ivory-alt); padding: 4rem 0 2rem; margin-top: 0;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+            <img src="assets/images/logo-fingerprint.png" alt="Biometrika-Core" style="width:28px;height:28px;">
+            <h4 style="margin:0;font-size:1rem;font-weight:600;">Biometrika-Core</h4>
+          </div>
+          <p style="color: var(--charcoal); font-size: 0.9rem; line-height: 1.6;">Human-first security for the modern internet.</p>
+        </div>
+        
+        <div>
+          <h5 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Product</h5>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="pages/how-it-works.html" style="color: var(--charcoal); font-size: 0.9rem;">How It Works</a>
+            <a href="pages/playground.html" style="color: var(--charcoal); font-size: 0.9rem;">Playground</a>
+            <a href="pages/protection.html" style="color: var(--charcoal); font-size: 0.9rem;">Protection</a>
+            <a href="pages/pricing.html" style="color: var(--charcoal); font-size: 0.9rem;">Pricing</a>
+          </div>
+        </div>
+        
+        <div>
+          <h5 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Resources</h5>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="pages/developers.html" style="color: var(--charcoal); font-size: 0.9rem;">Developers</a>
+            <a href="pages/docs.html" style="color: var(--charcoal); font-size: 0.9rem;">Documentation</a>
+            <a href="pages/how-it-works.html" style="color: var(--charcoal); font-size: 0.9rem;">How It Works</a>
+          </div>
+        </div>
+        
+        <div>
+          <h5 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Company</h5>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="pages/about.html" style="color: var(--charcoal); font-size: 0.9rem;">About Us</a>
+            <a href="pages/contact.html" style="color: var(--charcoal); font-size: 0.9rem;">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;">Legal</h5>
+          <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <a href="pages/privacy.html" style="color: var(--charcoal); font-size: 0.9rem;">Privacy Policy</a>
+            <a href="pages/terms.html" style="color: var(--charcoal); font-size: 0.9rem;">Terms of Service</a>
+            <a href="pages/security.html" style="color: var(--charcoal); font-size: 0.9rem;">Security</a>
+          </div>
+        </div>
+      </div>
+      
+      <div style="padding-top: 2rem; border-top: 1px solid rgba(0,0,0,0.1); text-align: center;">
+        <p style="margin: 0; color: var(--charcoal); font-size: 0.9rem;">&copy; 2026 Biometrika-Core. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       MODALS (INTERACTIVE OVERLAYS)
+  ============================================================ -->
+
+  <!-- Modal: Protect Website -->
+  <div class="modal-overlay" id="modal-protect" role="dialog" aria-modal="true" aria-labelledby="modal-protect-title">
+    <div class="modal-box">
+      <button class="modal-close" data-close="modal-protect" aria-label="Close modal">×</button>
+      <div class="modal-icon" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <path d="M11 2L4 5.5V11C4 15 7 18.5 11 20C15 18.5 18 15 18 11V5.5L11 2Z" stroke="white" stroke-width="1.6" stroke-linejoin="round" fill="none"/>
+          <path d="M8 11l2 2 4-4" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h2 class="modal-title" id="modal-protect-title">Protect Your Website</h2>
+      <p class="modal-body">
+        Biometrika-Core integrates seamlessly to block AI agents, scrapers, and bot networks in real time. Enter your email to request early access.
+      </p>
+      <div class="form-field">
+        <label for="protect-email">Work Email</label>
+        <input type="email" id="protect-email" placeholder="you@company.com" autocomplete="email" />
+      </div>
+      <button class="btn-red" style="width:100%;justify-content:center;margin-top:0.5rem;" onclick="document.getElementById('modal-protect').classList.remove('open');alert('Thank you! We will reach out shortly.')">
+        Request Early Access →
+      </button>
+      <p class="modal-note">No credit card required. Pure behavioral security.</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="script.js" defer></script>
+</body>
+</html>

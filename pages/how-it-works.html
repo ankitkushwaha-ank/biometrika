@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How It Works | Biometrika-Core</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-fingerprint.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+  <!-- ============================================================
+       HEADER / NAVIGATION
+  ============================================================ -->
+  <header id="site-header" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="logo" aria-label="Biometrika-Core home">
+        <img src="../assets/images/logo-fingerprint.png" alt="Biometrika-Core Logo" class="logo-icon" width="28" height="28" />
+        <span class="logo-text">
+          <span class="logo-dark">Biometrika-</span><span class="logo-red">Core</span>
+        </span>
+      </a>
+
+      <nav class="nav-right" aria-label="Primary navigation">
+        <a href="how-it-works.html" class="nav-link">How It Works</a>
+        <a href="playground.html" class="nav-link">Playground</a>
+        <a href="protection.html" class="nav-link">Protection</a>
+        <a href="pricing.html" class="nav-link">Pricing</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="../auth/login.html" class="btn-signin">Sign In <span class="nav-arrow">→</span></a>
+      </nav>
+
+      <button class="nav-hamburger" id="hamburger-btn" aria-label="Toggle navigation menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <nav class="mobile-menu" id="mobile-menu">
+        <a href="how-it-works.html">How It Works</a>
+    <a href="playground.html">Playground</a>
+    <a href="protection.html">Protection</a>
+    <a href="pricing.html">Pricing</a>
+    <a href="contact.html">Contact</a>
+    <a href="../auth/login.html">Sign In</a>
+  </nav>
+
+  <main>
+  <div class="container">
+    <div class="page-hero">
+      <h1>How It Works</h1>
+      <p>Learn how Biometrika-Core protects your website</p>
+    </div>
+
+    <div class="section">
+      <div class="card-grid">
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+              <path d="M2 17l10 5 10-5"></path>
+              <path d="M2 12l10 5 10-5"></path>
+            </svg>
+          </div>
+          <h3>Behavioral Observation</h3>
+          <p>Passively monitors natural human interaction patterns including mouse movement, typing rhythm, and touch dynamics.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+              <line x1="9" y1="9" x2="9.01" y2="9"></line>
+              <line x1="15" y1="9" x2="15.01" y2="9"></line>
+            </svg>
+          </div>
+          <h3>Real-Time Analysis</h3>
+          <p>AI models analyze behavior in real-time to distinguish human patterns from automated bot activity.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+            </svg>
+          </div>
+          <h3>Risk Scoring</h3>
+          <p>Each interaction receives a risk score based on behavioral signals and network fingerprints.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3>Automated Protection</h3>
+          <p>Suspicious traffic is automatically challenged or blocked before reaching your application.</p>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:4rem;">
+        <button class="btn-red" onclick="location.href='playground.html'">Try It Live →</button>
+      </div>
+    </div>
+  </div>
+  </main>
+
+  <script>
+    document.getElementById('hamburger-btn')?.addEventListener('click', function() {
+      this.classList.toggle('open');
+      document.getElementById('mobile-menu').classList.toggle('open');
+    });
+  </script>
+
+  <!-- Footer -->
+  <footer style="background:var(--ivory-alt);padding:4rem 0 2rem;margin-top:4rem;border-top:1px solid rgba(0,0,0,.06);">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:3rem;">
+        <div>
+          <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;">
+            <img src="../assets/images/logo-fingerprint.png" style="width:28px;height:28px;">
+            <strong style="font-size:1rem;">Biometrika-Core</strong>
+          </div>
+          <p style="color:var(--charcoal);font-size:.88rem;line-height:1.6;">Human-first security for the modern internet.</p>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Product</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="how-it-works.html" style="color:var(--charcoal);font-size:.88rem;">How It Works</a>
+            <a href="playground.html" style="color:var(--charcoal);font-size:.88rem;">Playground</a>
+            <a href="protection.html" style="color:var(--charcoal);font-size:.88rem;">Protection</a>
+            <a href="pricing.html" style="color:var(--charcoal);font-size:.88rem;">Pricing</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Company</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="about.html" style="color:var(--charcoal);font-size:.88rem;">About Us</a>
+            <a href="contact.html" style="color:var(--charcoal);font-size:.88rem;">Contact</a>
+          </div>
+        </div>
+        <div>
+          <h5 style="font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem;">Legal</h5>
+          <div style="display:flex;flex-direction:column;gap:.45rem;">
+            <a href="privacy.html" style="color:var(--charcoal);font-size:.88rem;">Privacy Policy</a>
+            <a href="terms.html" style="color:var(--charcoal);font-size:.88rem;">Terms of Service</a>
+            <a href="security.html" style="color:var(--charcoal);font-size:.88rem;">Security</a>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top:1.5rem;border-top:1px solid rgba(0,0,0,.08);text-align:center;">
+        <p style="margin:0;color:var(--charcoal);font-size:.88rem;">&copy; 2026 Biometrika-Core. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

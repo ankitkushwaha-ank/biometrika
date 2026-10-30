@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | Biometrika-Core</title>
+  <link rel="stylesheet" href="/assets/css/global.css">
+  <link rel="stylesheet" href="/assets/css/components.css">
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
+  <link rel="stylesheet" href="/assets/css/premium.css">
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="dashboard-sidebar">
+      <a href="/index.html" class="dashboard-sidebar-logo">
+        <img src="/assets/images/logo-fingerprint.png" alt="Biometrika-Core">
+        <span>Biometrika-<span class="logo-accent">Core</span></span>
+      </a>
+      
+      <ul class="dashboard-nav">
+        <li>
+          <a href="/dashboard/index.html" class="active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+            Overview
+          </a>
+        </li>
+        <li>
+          <a href="/dashboard/websites.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            Websites
+          </a>
+        </li>
+        <li>
+          <a href="/dashboard/analytics.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            Analytics
+          </a>
+        </li>
+        <li>
+          <a href="/dashboard/threats.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg>
+            Threats
+          </a>
+        </li>
+        <li>
+          <a href="/dashboard/api-keys.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>
+            API Keys
+          </a>
+        </li>
+        <li>
+          <a href="/dashboard/usage.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            Usage
+          </a>
+        </li>
+        <li>
+          <a href="/pages/docs.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            Docs
+          </a>
+        </li>
+        <li>
+          <a href="/dashboard/account.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Account
+          </a>
+        </li>
+      </ul>
+    </aside>
+    
+    <main class="dashboard-main">
+      <div class="dashboard-header">
+        <h1>Dashboard</h1>
+        <p>Monitor your website protection and security analytics</p>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="label">Total Requests</div>
+          <div class="value">24,891</div>
+          <div class="change positive">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            +12.5% from last week
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="label">Verified Humans</div>
+          <div class="value">21,453</div>
+          <div class="change positive">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            +8.2% from last week
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="label">Threats Blocked</div>
+          <div class="value">3,438</div>
+          <div class="change negative">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/><polyline points="17 18 23 18 23 12"/></svg>
+            -5.1% from last week
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="label">Success Rate</div>
+          <div class="value">86.2%</div>
+          <div class="change positive">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            +2.3% from last week
+          </div>
+        </div>
+      </div>
+      
+      <div class="dashboard-card">
+        <h3>Recent Activity</h3>
+        <div class="empty-state">
+          <svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+          <h3>No Recent Activity</h3>
+          <p>Activity will appear here once you add a website and start protecting it</p>
+          <a href="/dashboard/websites.html" class="btn-primary">Add Your First Website</a>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

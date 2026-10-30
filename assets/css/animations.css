@@ -1,0 +1,235 @@
+/* Premium Animations & Interactions */
+
+/* Fade in on load */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Text rotation animation */
+@keyframes textRotate {
+  0%, 100% { opacity: 1; transform: translateY(0); }
+  25% { opacity: 0; transform: translateY(-20px); }
+  50% { opacity: 0; transform: translateY(20px); }
+  75% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-on-load {
+  animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.animate-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.animate-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.animate-delay-3 { animation-delay: 0.3s; opacity: 0; }
+.animate-delay-4 { animation-delay: 0.4s; opacity: 0; }
+.animate-delay-5 { animation-delay: 0.5s; opacity: 0; }
+
+/* Rotating text effect */
+.rotating-text {
+  display: inline-block;
+  position: relative;
+  min-width: 200px;
+  text-align: left;
+}
+
+.rotating-text-word {
+  position: absolute;
+  left: 0;
+  opacity: 0;
+  animation: textRotate 9s infinite;
+}
+
+.rotating-text-word:nth-child(1) { animation-delay: 0s; }
+.rotating-text-word:nth-child(2) { animation-delay: 3s; }
+.rotating-text-word:nth-child(3) { animation-delay: 6s; }
+
+/* Hold to verify animations */
+.hold-button {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 2px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s ease;
+}
+
+.hold-button:hover {
+  border-color: var(--border-medium);
+  box-shadow: var(--shadow-md);
+}
+
+.hold-button.holding {
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 0 4px rgba(197, 43, 26, 0.1);
+}
+
+.hold-button.verified {
+  border-color: #28A745;
+  background: rgba(40, 167, 69, 0.05);
+  box-shadow: 0 0 0 4px rgba(40, 167, 69, 0.1);
+}
+
+.hold-progress-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg);
+}
+
+.hold-progress-bg {
+  fill: none;
+  stroke: var(--bg-tertiary);
+  stroke-width: 3;
+}
+
+.hold-progress-fill {
+  fill: none;
+  stroke: var(--accent-primary);
+  stroke-width: 3;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.hold-button.verified .hold-progress-fill {
+  stroke: #28A745;
+}
+
+.hold-fingerprint {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.hold-fingerprint svg {
+  stroke: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.hold-fingerprint.scanning svg {
+  stroke: var(--accent-primary);
+  animation: fingerprintScan 1.5s ease-in-out infinite;
+}
+
+.hold-fingerprint.unlocked svg {
+  stroke: #28A745;
+  animation: fingerprintUnlock 0.5s ease-out forwards;
+}
+
+@keyframes fingerprintScan {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.05); opacity: 0.8; }
+}
+
+@keyframes fingerprintUnlock {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1.05); }
+}
+
+.hold-text {
+  position: relative;
+  z-index: 2;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.hold-button.verified .hold-text {
+  color: #28A745;
+}
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* Smooth page transitions */
+body {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Interactive elements */
+.interactive-element {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-element:hover {
+  transform: translateY(-2px);
+}
+
+.interactive-element:active {
+  transform: translateY(0);
+}
+
+/* Pulse effect for CTA buttons */
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197, 43, 26, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(197, 43, 26, 0); }
+}
+
+.btn-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Skeleton loading */
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-tertiary) 0%,
+    var(--bg-secondary) 50%,
+    var(--bg-tertiary) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}

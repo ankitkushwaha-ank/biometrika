@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Websites | Dashboard</title>
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/components.css">
+  <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <div class="sidebar-logo">
+        <img src="../assets/images/logo-fingerprint.png" alt="Biometrika-Core">
+        <span>Biometrika-<span style="color:var(--red-primary);">Core</span></span>
+      </div>
+      <ul class="sidebar-nav">
+        <li><a href="index.html">Overview</a></li>
+        <li><a href="websites.html" class="active">Websites</a></li>
+        <li><a href="analytics.html">Analytics</a></li>
+        <li><a href="threats.html">Threats</a></li>
+        <li><a href="api-keys.html">API Keys</a></li>
+        <li><a href="usage.html">Usage</a></li>
+        <li><a href="../pages/docs.html">Docs</a></li>
+        <li><a href="account.html">Account</a></li>
+      </ul>
+    </aside>
+    <main class="dashboard-main">
+      <div class="dashboard-header">
+        <h1>Websites</h1>
+        <p>Manage protected websites and configure security settings</p>
+        <button class="btn-red" style="margin-top:1rem;">Add Website</button>
+      </div>
+      <div class="card">
+        <div class="empty-state">
+          <h3>No Websites Yet</h3>
+          <p>Add your first website to start protecting it from bots and AI agents</p>
+          <button class="btn-red">Add Your First Website</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
