@@ -3,38 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Threats | Dashboard</title>
-  <link rel="stylesheet" href="../assets/css/global.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
-  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <title>Protection | Biometrika-Core</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-fingerprint.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/db.css"/>
 </head>
 <body>
-  <div class="dashboard-layout">
-    <aside class="sidebar">
-      <div class="sidebar-logo">
-        <img src="../assets/images/logo-fingerprint.png" alt="Biometrika-Core">
-        <span>Biometrika-<span style="color:var(--red-primary);">Core</span></span>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="db-main">
+    <div class="topbar" id="topbar">
+      <div class="topbar-left"><span class="topbar-page-title">Protection</span></div>
+    </div>
+
+    <div class="db-content">
+      <div class="page-hd">
+        <h1>Protection</h1>
+        <p>Threat activity and blocked requests across your websites</p>
       </div>
-      <ul class="sidebar-nav">
-        <li><a href="index.html">Overview</a></li>
-        <li><a href="websites.html">Websites</a></li>
-        <li><a href="analytics.html">Analytics</a></li>
-        <li><a href="threats.html">Threats</a></li>
-        <li><a href="api-keys.html">API Keys</a></li>
-        <li><a href="usage.html">Usage</a></li>
-        <li><a href="../pages/docs.html">Docs</a></li>
-        <li><a href="account.html">Account</a></li>
-      </ul>
-    </aside>
-    <main class="dashboard-main">
-      <div class="dashboard-header">
-        <h1>Threats</h1>
-        <p>Dashboard content for Threats</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="s-label">Total Blocked</div>
+          <div class="s-val">3,438</div>
+          <div class="s-change pos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> Down 5.1%</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-label">AI Agents</div>
+          <div class="s-val">1,444</div>
+          <div class="s-change neg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 18 13.5 8.5 8.5 13.5 1 6"/></svg> +3.2%</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-label">Scrapers</div>
+          <div class="s-val">962</div>
+          <div class="s-change pos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> Down 8.4%</div>
+        </div>
+        <div class="stat-card">
+          <div class="s-label">Credential Stuffing</div>
+          <div class="s-val">275</div>
+          <div class="s-change pos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg> Down 11%</div>
+        </div>
       </div>
-      <div class="card">
-        <p style="text-align:center;padding:3rem;color:var(--charcoal);">Content coming soon...</p>
+
+      <!-- Recent threat log -->
+      <div class="db-card">
+        <h2 class="db-card-title">Recent Threat Log</h2>
+        <table class="db-table">
+          <thead><tr><th>Time</th><th>Website</th><th>Threat Type</th><th>IP</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td style="color:#888;font-size:.83rem;">Oct 22, 14:32</td><td>portfolio-kali.vercel.app</td><td><span class="badge red">AI Agent</span></td><td style="font-family:monospace;font-size:.82rem;">185.220.xx.xx</td><td><span class="badge gray">Blocked</span></td></tr>
+            <tr><td style="color:#888;font-size:.83rem;">Oct 22, 14:18</td><td>buildyourstartup.in</td><td><span class="badge red">Scraper</span></td><td style="font-family:monospace;font-size:.82rem;">45.155.xx.xx</td><td><span class="badge gray">Blocked</span></td></tr>
+            <tr><td style="color:#888;font-size:.83rem;">Oct 22, 13:55</td><td>buildyourstartup.in</td><td><span class="badge red">Bot Network</span></td><td style="font-family:monospace;font-size:.82rem;">103.88.xx.xx</td><td><span class="badge gray">Blocked</span></td></tr>
+            <tr><td style="color:#888;font-size:.83rem;">Oct 22, 13:21</td><td>portfolio-kali.vercel.app</td><td><span class="badge red">Credential Stuffing</span></td><td style="font-family:monospace;font-size:.82rem;">91.108.xx.xx</td><td><span class="badge gray">Blocked</span></td></tr>
+            <tr><td style="color:#888;font-size:.83rem;">Oct 22, 12:44</td><td>portfolio-kali.vercel.app</td><td><span class="badge red">Scraper</span></td><td style="font-family:monospace;font-size:.82rem;">193.32.xx.xx</td><td><span class="badge gray">Blocked</span></td></tr>
+            <tr><td style="color:#888;font-size:.83rem;">Oct 22, 12:11</td><td>buildyourstartup.in</td><td><span class="badge red">AI Agent</span></td><td style="font-family:monospace;font-size:.82rem;">162.55.xx.xx</td><td><span class="badge gray">Blocked</span></td></tr>
+          </tbody>
+        </table>
       </div>
-    </main>
+    </div>
   </div>
+
+  <script src="../assets/js/db-shell.js"></script>
+  <script>renderShell('nav-threats');</script>
 </body>
 </html>

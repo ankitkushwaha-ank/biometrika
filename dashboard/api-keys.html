@@ -3,38 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Api Keys | Dashboard</title>
-  <link rel="stylesheet" href="../assets/css/global.css">
-  <link rel="stylesheet" href="../assets/css/components.css">
-  <link rel="stylesheet" href="../assets/css/dashboard.css">
+  <title>API Keys | Biometrika-Core</title>
+  <link rel="icon" type="image/png" href="../assets/images/logo-fingerprint.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="../assets/css/db.css"/>
 </head>
 <body>
-  <div class="dashboard-layout">
-    <aside class="sidebar">
-      <div class="sidebar-logo">
-        <img src="../assets/images/logo-fingerprint.png" alt="Biometrika-Core">
-        <span>Biometrika-<span style="color:var(--red-primary);">Core</span></span>
+  <aside class="sidebar" id="sidebar"></aside>
+
+  <div class="db-main">
+    <div class="topbar" id="topbar">
+      <div class="topbar-left"><span class="topbar-page-title">API Keys</span></div>
+    </div>
+
+    <div class="db-content">
+      <div class="page-hd">
+        <h1>API Keys</h1>
+        <p>Manage API keys for integrating Biometrika-Core into your applications</p>
       </div>
-      <ul class="sidebar-nav">
-        <li><a href="index.html">Overview</a></li>
-        <li><a href="websites.html">Websites</a></li>
-        <li><a href="analytics.html">Analytics</a></li>
-        <li><a href="threats.html">Threats</a></li>
-        <li><a href="api-keys.html">API Keys</a></li>
-        <li><a href="usage.html">Usage</a></li>
-        <li><a href="../pages/docs.html">Docs</a></li>
-        <li><a href="account.html">Account</a></li>
-      </ul>
-    </aside>
-    <main class="dashboard-main">
-      <div class="dashboard-header">
-        <h1>Api Keys</h1>
-        <p>Dashboard content for Api Keys</p>
+
+      <div class="sec-row" style="margin-bottom:1.5rem;">
+        <div></div>
+        <button class="btn-primary" onclick="alert('Generate key — Phase 2')">+ Generate New Key</button>
       </div>
-      <div class="card">
-        <p style="text-align:center;padding:3rem;color:var(--charcoal);">Content coming soon...</p>
+
+      <!-- Keys list -->
+      <div class="db-card" style="padding:0;overflow:hidden;margin-bottom:1.5rem;">
+        <table class="db-table">
+          <thead><tr><th>Name</th><th>Key</th><th>Created</th><th>Last Used</th><th>Status</th><th></th></tr></thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:600;">Production Key</td>
+              <td><code style="font-family:monospace;font-size:.82rem;background:#F4F2EE;padding:.2rem .5rem;border-radius:4px;">bmc_prod_••••••••••••••••4a2f</code></td>
+              <td style="color:#888;font-size:.83rem;">Oct 10, 2026</td>
+              <td style="color:#888;font-size:.83rem;">2 hours ago</td>
+              <td><span class="badge green">Active</span></td>
+              <td>
+                <div style="display:flex;gap:.25rem;">
+                  <button class="icon-btn" title="Copy" onclick="navigator.clipboard.writeText('bmc_prod_key').then(()=>alert('Copied!'))">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                  <button class="icon-btn" title="Revoke" style="color:#C52B1A;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Staging Key</td>
+              <td><code style="font-family:monospace;font-size:.82rem;background:#F4F2EE;padding:.2rem .5rem;border-radius:4px;">bmc_stg_••••••••••••••••9c1d</code></td>
+              <td style="color:#888;font-size:.83rem;">Sep 22, 2026</td>
+              <td style="color:#888;font-size:.83rem;">3 days ago</td>
+              <td><span class="badge green">Active</span></td>
+              <td>
+                <div style="display:flex;gap:.25rem;">
+                  <button class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg></button>
+                  <button class="icon-btn" style="color:#C52B1A;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-    </main>
+
+      <!-- Quick start -->
+      <div class="db-card">
+        <h2 class="db-card-title">Quick Start</h2>
+        <p style="font-size:.88rem;color:#666;margin-bottom:1rem;">Add Biometrika-Core to your site in one line:</p>
+        <div class="code-block">
+          <button class="copy-btn" onclick="navigator.clipboard.writeText(this.nextElementSibling.textContent).then(()=>{this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)})">Copy</button>
+          <code>&lt;script src="https://cdn.biometrika-core.com/v1/bmc.min.js"
+  data-key="YOUR_API_KEY" async&gt;&lt;/script&gt;</code>
+        </div>
+        <p style="font-size:.83rem;color:#888;margin-top:.75rem;">Replace <code style="background:#F4F2EE;padding:.1rem .4rem;border-radius:4px;">YOUR_API_KEY</code> with your production key above.</p>
+      </div>
+    </div>
   </div>
+
+  <script src="../assets/js/db-shell.js"></script>
+  <script>renderShell('nav-apikeys');</script>
 </body>
 </html>
